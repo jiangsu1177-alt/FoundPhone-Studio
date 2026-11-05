@@ -751,6 +751,13 @@ svg {
     #b7bfa9
   );
 }
+.wallpaper-newyork-moon {
+  background-color: #140d0c;
+  background-image: url("./assets/wallpaper.jpg");
+  background-position: center 38%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .wallpaper-orb {
   position: absolute;
   pointer-events: none;
@@ -3971,6 +3978,18 @@ label {
   font-size: 9px;
   margin: 2px 0 24px;
 }
+.skin-system-event {
+  width: fit-content;
+  max-width: 85%;
+  margin: 0 auto 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: #d6d6d6;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.5;
+  text-align: center;
+}
 .skin-message {
   display: flex;
   align-items: flex-start;
@@ -4061,6 +4080,9 @@ label {
 .wx-moment-cover {
   height: 140px;
   background: #8f9e96;
+  background-position: center 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -96,38 +96,58 @@ function MessageList({
   onRead: (id: string) => void;
   whatsapp?: boolean;
 }) {
+  const time = items[0]?.time || "",
+    date = time.slice(0, 10),
+    match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date),
+    weekday = ["日", "一", "二", "三", "四", "五", "六"];
+  const dateLabel = (() => {
+    if (!match) return date;
+    const [, year, month, day] = match;
+    const dayOfWeek = new Date(
+      Date.UTC(Number(year), Number(month) - 1, Number(day)),
+    ).getUTCDay();
+    return `${Number(month)}月${Number(day)}日 周${weekday[dayOfWeek]}`;
+  })();
   return (
     <div className={`skin-messages ${whatsapp ? "wa-wallpaper" : ""}`}>
-      <div className="skin-date">{items[0]?.time.slice(0, 10)}</div>
+      <div className="skin-date">{dateLabel}</div>
       {items.map((i) => (
-        <div
-          key={i.id}
-          className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
-        >
-          {!whatsapp && !i.outgoing && (
-            <Avatar name={i.sender} src={i.avatar} />
-          )}
-          <button
-            className="skin-bubble"
-            onClick={() => (creator ? onItem(i) : onRead(i.id))}
+        i.kind === "event" ? (
+          <div key={i.id} className="skin-system-event">
+            {i.body}
+          </div>
+        ) : (
+          <div
+            key={i.id}
+            className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
           >
-            {["image", "audio", "video"].includes(i.kind) ? (
-              <ItemMedia item={i} />
-            ) : i.kind === "transfer" ? (
-              <div className="skin-transfer">
-                ¥ {i.body}
-                <small>转账记录 · 虚构</small>
-              </div>
-            ) : (
-              i.body
+            {!whatsapp && !i.outgoing && (
+              <Avatar name={i.sender} src={i.avatar} />
             )}
-            <small className={whatsapp ? undefined : "wx-message-time"}>
-              {i.time.slice(-5)}{" "}
-              {whatsapp && i.outgoing && <CheckCheck size={11} />}
-            </small>
-          </button>
-          {!whatsapp && i.outgoing && <Avatar name={i.sender} src={i.avatar} />}
-        </div>
+            <button
+              className="skin-bubble"
+              onClick={() => (creator ? onItem(i) : onRead(i.id))}
+            >
+              {["image", "audio", "video"].includes(i.kind) ? (
+                <ItemMedia item={i} />
+              ) : i.kind === "transfer" ? (
+                <div className="skin-transfer">
+                  ¥ {i.body}
+                  <small>转账记录 · 虚构</small>
+                </div>
+              ) : (
+                i.body
+              )}
+              <small className={whatsapp ? undefined : "wx-message-time"}>
+                {i.time.slice(-5)}{" "}
+                {whatsapp && i.outgoing && <CheckCheck size={11} />}
+              </small>
+            </button>
+            {!whatsapp && i.outgoing && (
+              <Avatar name={i.sender} src={i.avatar} />
+            )}
+          </div>
+        )
       ))}
     </div>
   );
@@ -166,13 +186,22 @@ export function WeChatSkin(p: SkinProps) {
   const conversations = [
     ...new Set(
       p.items
-        .filter((i) => !["朋友圈", "我"].includes(i.folder))
+        .filter((i) => !["朋友圈", "我", "朋友圈背景"].includes(i.folder))
         .map((i) => i.title),
     ),
   ];
   const contacts = [
-    ...new Set(p.items.map((i) => i.sender).filter((s) => s !== "我")),
+    ...new Set(
+      p.items
+        .filter((i) => !["我", "朋友圈背景"].includes(i.folder))
+        .map((i) => i.sender)
+        .filter((s) => s !== "我" && s !== p.owner),
+    ),
   ];
+  const ownerProfile = p.items.find((i) => i.folder === "我"),
+    momentsCover = safeMedia(
+      p.items.find((i) => i.folder === "朋友圈背景")?.media || "",
+    );
   const posts = p.items.filter(
     (i) => i.folder === "朋友圈" || i.kind === "post",
   );
@@ -287,7 +316,14 @@ export function WeChatSkin(p: SkinProps) {
         </>
       ) : moments ? (
         <div className="wx-moments">
-          <div className="wx-moment-cover">
+          <div
+            className="wx-moment-cover"
+            style={
+              momentsCover
+                ? { backgroundImage: `url("${momentsCover}")` }
+                : undefined
+            }
+          >
             <Camera size={32} />
             <span>朋友圈</span>
           </div>
@@ -419,10 +455,15 @@ export function WeChatSkin(p: SkinProps) {
           ) : (
             <>
               <div className="wx-profile">
-                <Avatar name={p.owner || "机主"} />
+                <Avatar
+                  name={ownerProfile?.sender || p.owner || "机主"}
+                  src={ownerProfile?.avatar}
+                />
                 <div>
-                  <h2>{p.owner || "机主"}</h2>
-                  <small>微信号：未设置</small>
+                  <h2>{ownerProfile?.sender || p.owner || "机主"}</h2>
+                  <small>
+                    微信号：{ownerProfile?.meta.wechatId || "未设置"}
+                  </small>
                   <button
                     className="wx-profile-status"
                     onClick={() => setUtility("状态")}
