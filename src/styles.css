@@ -4164,6 +4164,10 @@ label {
   width: min(100%, 210px);
   margin-top: 8px;
 }
+.wx-moment-grid[data-count="4"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 160px);
+}
 .wx-moment-post .wx-moment-grid img {
   width: 100%;
   aspect-ratio: 1;

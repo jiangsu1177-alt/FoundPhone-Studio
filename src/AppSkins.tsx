@@ -83,6 +83,27 @@ function ItemMedia({ item }: { item: Item }) {
     </div>
   );
 }
+function momentTimestamp(time: string) {
+  const iso = Date.parse(time.replace(" ", "T"));
+  if (!Number.isNaN(iso)) return iso;
+  const chinese = /^(\d{1,2})月(\d{1,2})日(?:\s+(\d{1,2}):(\d{2}))?$/.exec(
+    time,
+  );
+  if (!chinese) return 0;
+  return new Date(
+    2026,
+    Number(chinese[1]) - 1,
+    Number(chinese[2]),
+    Number(chinese[3] || 0),
+    Number(chinese[4] || 0),
+  ).getTime();
+}
+function momentTimeLabel(time: string) {
+  const timestamp = momentTimestamp(time);
+  if (!timestamp) return time;
+  const date = new Date(timestamp);
+  return `${date.getMonth() + 1}月${date.getDate()}日 ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+}
 function MessageList({
   items,
   creator,
@@ -213,6 +234,8 @@ export function WeChatSkin(p: SkinProps) {
       groups.set(key, group);
       return groups;
     }, new Map<string, Item[]>()).values(),
+  ).sort(
+    (a, b) => momentTimestamp(b[0]!.time) - momentTimestamp(a[0]!.time),
   );
   return (
     <div
@@ -341,12 +364,18 @@ export function WeChatSkin(p: SkinProps) {
             const songShare = post.meta.shareType === "song";
             const mediaItems = group.filter((item) => item.media);
             return (
-              <button
+              <article
                 key={post.id}
                 className="wx-moment-post"
-                onClick={() => p.onItem(post)}
               >
-                <Avatar name={post.sender} />
+                <Avatar
+                  name={post.sender}
+                  src={
+                    post.sender === p.owner
+                      ? ownerProfile?.avatar || ""
+                      : post.avatar
+                  }
+                />
                 <div>
                   <strong>{post.sender}</strong>
                   {post.body && <p>{post.body}</p>}
@@ -364,7 +393,10 @@ export function WeChatSkin(p: SkinProps) {
                       </div>
                     </div>
                   ) : mediaItems.length > 1 ? (
-                    <div className="wx-moment-grid">
+                    <div
+                      className="wx-moment-grid"
+                      data-count={mediaItems.length}
+                    >
                       {mediaItems.map((item) => (
                         <img
                           key={item.id}
@@ -377,9 +409,9 @@ export function WeChatSkin(p: SkinProps) {
                   ) : mediaItems[0] ? (
                     <ItemMedia item={mediaItems[0]} />
                   ) : null}
-                  <small>{post.time}</small>
+                  <small>{momentTimeLabel(post.time)}</small>
                 </div>
-              </button>
+              </article>
             );
           })}
           {!posts.length && <p className="skin-empty">暂无朋友圈动态</p>}
