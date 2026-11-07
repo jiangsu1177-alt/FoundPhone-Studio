@@ -1,6 +1,15 @@
 .ios18 .status-bar {
-  padding: 0 35px 0 42px;
+  padding: 0 32px 0 58px;
   height: var(--ios-safe-top);
+}
+.ios18 .dynamic-island {
+  top: 14px;
+  width: 95px;
+  height: 37px;
+}
+.ios18 .dynamic-island:after {
+  top: 13px;
+  right: 12px;
 }
 .ios18 .status-bar > .status-time {
   display: inline-flex;
@@ -13,9 +22,7 @@
   line-height: 20px;
 }
 .ios18 .status-silent {
-  width: 13px;
-  height: 17px;
-  flex: none;
+  display: none;
 }
 .ios18 .status-bar > .signals {
   display: flex;
@@ -43,10 +50,7 @@
   opacity: 1;
 }
 .ios18 .signals .ios-battery > b {
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 14px;
-  letter-spacing: -0.3px;
+  display: none;
 }
 .ios18 .signals .ios-battery::after {
   right: -3px;
@@ -56,3 +60,4 @@
 .ios18 .signals .ios-battery.low-battery > span {
   background: #ffd60a;
 }
+
