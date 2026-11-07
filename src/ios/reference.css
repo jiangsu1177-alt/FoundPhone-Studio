@@ -129,6 +129,77 @@
 .ios18 .wechat-ui .skin-scroll {
   background: #ededed;
 }
+.ios18 .wechat-ui .wx-contact-shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 8px;
+  background: #fff;
+}
+.ios18 .wechat-ui .wx-contact-shortcut {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 16px;
+  color: #111;
+  background: #fff;
+  font-size: 16px;
+}
+.ios18 .wechat-ui .wx-contact-shortcut:not(:last-child)::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 56px;
+  height: 0.5px;
+  background: #e6e6e6;
+  content: "";
+}
+.ios18 .wechat-ui .wx-contact-shortcut > svg {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  stroke-width: 1.8;
+}
+.ios18 .wechat-ui .wx-contact {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  min-height: 56px;
+  gap: 12px;
+  padding: 8px 16px;
+  color: rgba(0, 0, 0, 0.9);
+  background: #fff;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 16px;
+  text-align: left;
+}
+.ios18 .wechat-ui .wx-contact > .skin-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+}
+.ios18 .wechat-ui .wx-contact::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 72px;
+  height: 0.5px;
+  background: #e6e6e6;
+  content: "";
+}
+.ios18 .wechat-ui .wx-nav > button:first-child {
+  visibility: hidden;
+}
+.ios18 .wechat-ui[data-tab="通讯录"] .wx-nav > button:first-child {
+  visibility: visible;
+}
 .ios18 .wechat-ui .wx-chat-row {
   height: 71px;
   min-height: 71px;
@@ -741,3 +812,4 @@
   background: #fafafa;
   color: #ffadb7;
 }
+
