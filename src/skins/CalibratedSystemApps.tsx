@@ -11,7 +11,7 @@ import {
   User,
   Plus,
   MoonStar,
-  Sunrise,
+  Sun,
   CloudSun,
   Droplet,
   Wind,
@@ -354,6 +354,7 @@ function listMeta(
   low?: string;
   high?: string;
   label?: string;
+  condition?: string;
 }[] {
   try {
     const v = JSON.parse(meta(item, key, "[]"));
@@ -367,7 +368,7 @@ function listMeta(
                 (v) => typeof v === "string" || typeof v === "number",
               ),
           )
-          .slice(0, 12)
+          .slice(0, 24)
       : [];
   } catch {
     return [];
@@ -380,7 +381,11 @@ export function WeatherSkin(p: Props) {
     [query, setQuery] = useState("");
   const item = p.items[index] || p.items[0],
     hourly = listMeta(item, "hourly"),
-    daily = listMeta(item, "daily");
+    daily = listMeta(item, "daily"),
+    currentHour = Number(item?.time?.slice(11, 13)) || 0,
+    upcomingHours = Array.from({ length: Math.min(6, hourly.length) }, (_, n) =>
+      hourly[(currentHour + n) % hourly.length],
+    );
   const read = () => {
     if (item) {
       if (p.creator || item.password) p.onItem(item);
@@ -464,34 +469,33 @@ export function WeatherSkin(p: Props) {
             </div>
           </header>
           <div className="weather-hour-grid">
-            {Array.from({ length: 6 }, (_, n) => (
-              <button
-                key={n}
-                onClick={() => {
-                  read();
-                  setSheet("逐小时天气");
-                }}
-              >
-                <strong>
-                  {hourly[n]?.time ||
-                    ["现在", "—时", "—时", "—时", "—时", "日出"][n]}
-                </strong>
-                {n === 5 ? (
-                  <Sunrise size={28} color="#ffd60a" />
-                ) : (
-                  <MoonStar size={28} />
-                )}
-                <span>
-                  {n === 5
-                    ? meta(item, "sunrise", "—")
-                    : mode === "temperature"
-                      ? (hourly[n]?.temperature ?? "—") + "°"
+            {upcomingHours.map((hour, n) => {
+              const hourTime = hour.time || "—";
+              const HourIcon =
+                Number(hourTime.slice(0, 2)) >= 6 &&
+                Number(hourTime.slice(0, 2)) <= 18
+                  ? Sun
+                  : MoonStar;
+              return (
+                <button
+                  key={hourTime}
+                  onClick={() => {
+                    read();
+                    setSheet("逐小时天气");
+                  }}
+                >
+                  <strong>{n === 0 ? "现在" : hourTime}</strong>
+                  <HourIcon size={28} />
+                  <span>
+                    {mode === "temperature"
+                      ? (hour.temperature ?? "—") + "°"
                       : mode === "rain"
                         ? meta(item, "rain", "—")
                         : meta(item, "wind", "—")}
-                </span>
-              </button>
-            ))}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </section>
         <section className="weather-native-card weather-days">
@@ -513,7 +517,11 @@ export function WeatherSkin(p: Props) {
               }}
             >
               <strong>{d.label || d.time || "—"}</strong>
-              <CloudSun size={23} />
+              {d.condition?.includes("云") ? (
+                <CloudSun size={23} />
+              ) : (
+                <Sun size={23} />
+              )}
               <span>{d.low || "—"}°</span>
               <i />
               <b>{d.high || "—"}°</b>
@@ -597,11 +605,33 @@ export function WeatherSkin(p: Props) {
           ) : (
             <div className="weather-section-detail">
               <h2>{item?.title || "暂无城市"}</h2>
-              <p>
-                {sheet === "空气质量"
-                  ? meta(item, "aqi", "暂无空气质量数据")
-                  : item?.body || "暂无天气记录"}
-              </p>
+              {sheet === "逐小时天气" && hourly.length ? (
+                <div className="weather-hour-list">
+                  {hourly.map((hour) => (
+                    <div className="weather-hour-row" key={hour.time}>
+                      <strong>{hour.time}</strong>
+                      <span>{hour.condition || "天气"}</span>
+                      <b>{hour.temperature ?? "—"}°</b>
+                    </div>
+                  ))}
+                </div>
+              ) : sheet === "每日天气" && daily.length ? (
+                <div className="weather-hour-list">
+                  {daily.map((day) => (
+                    <div className="weather-hour-row" key={day.label}>
+                      <strong>{day.label || day.time}</strong>
+                      <span>{day.condition || "天气"}</span>
+                      <b>{day.low ?? "—"}° / {day.high ?? "—"}°</b>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p>
+                  {sheet === "空气质量"
+                    ? meta(item, "aqi", "暂无空气质量数据")
+                    : item?.body || "暂无天气记录"}
+                </p>
+              )}
               {item && <small>{item.time}</small>}
             </div>
           )}

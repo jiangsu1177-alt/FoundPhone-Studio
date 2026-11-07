@@ -284,12 +284,16 @@ export function WeChatSkin(p: SkinProps) {
       </div>
       {menu && (
         <div className="wx-popup-menu" role="menu">
-          {["搜索", "发起群聊", "添加朋友", "扫一扫", "收付款"].map((label) => (
+          {(moments
+            ? ["发布朋友圈"]
+            : ["搜索", "发起群聊", "添加朋友", "扫一扫", "收付款"]
+          ).map((label) => (
             <button
               role="menuitem"
               key={label}
               onClick={() => {
                 setMenu(false);
+                if (moments) return;
                 if (label === "搜索") {
                   setSearchOpen(true);
                 } else setUtility(label);

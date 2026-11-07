@@ -818,6 +818,24 @@
   padding: 25px 8px;
   font-size: 18px;
 }
+.ios18 .weather-hour-list {
+  margin-top: 16px;
+}
+.ios18 .weather-hour-row {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #ffffff2a;
+  font-size: 14px;
+}
+.ios18 .weather-hour-row > span {
+  opacity: 0.78;
+}
+.ios18 .weather-hour-row > b {
+  font-weight: 600;
+}
 .ios18 .calibrated-health,
 .ios18 .calibrated-weather {
   flex-direction: column;
