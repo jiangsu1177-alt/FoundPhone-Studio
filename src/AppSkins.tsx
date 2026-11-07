@@ -205,6 +205,15 @@ export function WeChatSkin(p: SkinProps) {
   const posts = p.items.filter(
     (i) => i.folder === "朋友圈" || i.kind === "post",
   );
+  const momentGroups = Array.from(
+    posts.reduce((groups, item) => {
+      const key = item.meta.momentGroup || item.id;
+      const group = groups.get(key) || [];
+      group.push(item);
+      groups.set(key, group);
+      return groups;
+    }, new Map<string, Item[]>()).values(),
+  );
   return (
     <div
       className="wechat-ui independent-skin"
@@ -327,21 +336,52 @@ export function WeChatSkin(p: SkinProps) {
             <Camera size={32} />
             <span>朋友圈</span>
           </div>
-          {posts.map((i) => (
-            <button
-              key={i.id}
-              className="wx-moment-post"
-              onClick={() => p.onItem(i)}
-            >
-              <Avatar name={i.sender} />
-              <div>
-                <strong>{i.sender}</strong>
-                <p>{i.body}</p>
-                {i.media && <ItemMedia item={i} />}
-                <small>{i.time}</small>
-              </div>
-            </button>
-          ))}
+          {momentGroups.map((group) => {
+            const post = group[0]!;
+            const songShare = post.meta.shareType === "song";
+            const mediaItems = group.filter((item) => item.media);
+            return (
+              <button
+                key={post.id}
+                className="wx-moment-post"
+                onClick={() => p.onItem(post)}
+              >
+                <Avatar name={post.sender} />
+                <div>
+                  <strong>{post.sender}</strong>
+                  {post.body && <p>{post.body}</p>}
+                  {songShare ? (
+                    <div className="wx-moment-song">
+                      <img
+                        src={safeMedia(post.media) || ""}
+                        alt="Queen 专辑封面"
+                      />
+                      <div>
+                        <strong>
+                          {post.meta.songTitle || post.title}
+                        </strong>
+                        <small>{post.meta.platform || "网易云音乐"}</small>
+                      </div>
+                    </div>
+                  ) : mediaItems.length > 1 ? (
+                    <div className="wx-moment-grid">
+                      {mediaItems.map((item) => (
+                        <img
+                          key={item.id}
+                          loading="lazy"
+                          src={safeMedia(item.media) || ""}
+                          alt={item.title}
+                        />
+                      ))}
+                    </div>
+                  ) : mediaItems[0] ? (
+                    <ItemMedia item={mediaItems[0]} />
+                  ) : null}
+                  <small>{post.time}</small>
+                </div>
+              </button>
+            );
+          })}
           {!posts.length && <p className="skin-empty">暂无朋友圈动态</p>}
           {p.creator && (
             <button className="phone-add" onClick={p.onAdd}>
