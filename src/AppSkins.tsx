@@ -207,7 +207,11 @@ export function WeChatSkin(p: SkinProps) {
   const conversations = [
     ...new Set(
       p.items
-        .filter((i) => !["朋友圈", "我", "朋友圈背景"].includes(i.folder))
+        .filter(
+          (i) =>
+            !i.meta.wechatContactOnly &&
+            !["朋友圈", "我", "朋友圈背景", "联系人"].includes(i.folder),
+        )
         .map((i) => i.title),
     ),
   ];
@@ -357,7 +361,9 @@ export function WeChatSkin(p: SkinProps) {
       ) : p.thread ? (
         <>
           <MessageList
-            items={p.items.filter((i) => i.title === p.thread)}
+            items={p.items.filter(
+              (i) => i.title === p.thread && !i.meta.wechatContactOnly,
+            )}
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
@@ -515,11 +521,12 @@ export function WeChatSkin(p: SkinProps) {
                   key={c}
                   className="wx-contact"
                   onClick={() => {
-                    const item = p.items.find((i) => i.sender === c);
-                    if (item) {
-                      p.onThread(item.title);
-                      p.onRead(item.title);
-                    }
+                    const item = p.items.find(
+                      (i) => i.sender === c && !i.meta.wechatContactOnly,
+                    );
+                    const title = item?.title || c;
+                    p.onThread(title);
+                    if (item) p.onRead(title);
                   }}
                 >
                   <Avatar
