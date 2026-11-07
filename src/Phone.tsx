@@ -86,7 +86,11 @@ export function AppIcon({
       <span className="app-icon" style={{ background: a.color }}>
         {custom ? (
           safeMedia(custom) ? (
-            <img src={safeMedia(custom)} alt="自定义图标" />
+            <img
+              src={safeMedia(custom)}
+              alt="自定义图标"
+              style={id === "tonghuashun" ? { objectPosition: "center 10%" } : undefined}
+            />
           ) : (
             <span>{custom.slice(0, 2)}</span>
           )
