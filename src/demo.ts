@@ -59,7 +59,11 @@ export function createWork(title = "雨停之前"): Work {
     nodes: [],
     mode: "mixed",
   };
-  for (const a of registry)
+  for (const a of registry) {
+    if (a.id === "tonghuashun") {
+      w.data[a.id] = [];
+      continue;
+    }
     w.data[a.id] = [
       makeItem({
         id: `${a.id}-first`,
@@ -86,6 +90,7 @@ export function createWork(title = "雨停之前"): Work {
         folder: a.tabs[0],
       }),
     ];
+  }
   w.data.wechat = [
     makeItem({
       id: "wx1",
