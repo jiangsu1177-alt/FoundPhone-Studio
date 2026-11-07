@@ -142,6 +142,9 @@ export function PhoneSkin(p: Props) {
 }
 export function ContactsSkin(p: Props) {
   const { q, setQ, items } = useContent(p, "所有联系人");
+  const selfCard = p.items.find((i) => meta(i, "selfCard") === "true"),
+    contacts = items.filter((i) => meta(i, "selfCard") !== "true"),
+    selfName = selfCard?.title || p.owner || "我的名片";
   return (
     <div className="catalog-skin native-contacts">
       <Header p={p} />
@@ -151,20 +154,21 @@ export function ContactsSkin(p: Props) {
         <button
           className="contact-self"
           onClick={() => {
-            if (items[0]) p.onItem(items[0]);
+            if (selfCard) p.onItem(selfCard);
+            else if (items[0]) p.onItem(items[0]);
             else if (p.creator) p.onAdd();
           }}
         >
-          <Avatar name={p.owner ?? "我"} />
+          <Avatar name={selfName} src={selfCard?.avatar} />
           <span>
-            <strong>{p.owner ?? "我的名片"}</strong>
+            <strong>{selfName}</strong>
             <small>我的名片</small>
           </span>
         </button>
-        {groupItems(items, "所有联系人").map((g) => (
+        {groupItems(contacts, "所有联系人").map((g) => (
           <section key={g}>
             <h4 className="native-section">{g}</h4>
-            {items
+            {contacts
               .filter((i) => (i.folder || "所有联系人") === g)
               .sort((a, b) => a.title.localeCompare(b.title, "zh-CN"))
               .map((i) => (
@@ -172,12 +176,12 @@ export function ContactsSkin(p: Props) {
                   key={i.id}
                   item={i}
                   onItem={p.onItem}
-                  leading={<Avatar name={i.title} />}
+                  leading={<Avatar name={i.title} src={i.avatar} />}
                 />
               ))}
           </section>
         ))}
-        <Empty items={items} />
+        <Empty items={contacts} />
       </div>
     </div>
   );

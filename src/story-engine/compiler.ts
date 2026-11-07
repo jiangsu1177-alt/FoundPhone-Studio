@@ -58,6 +58,7 @@ export const storySchema = z
           phone: z.string().default(""),
           avatar: z.string().default(""),
           bio: z.string().default(""),
+          apps: z.array(z.string()).default(["contacts"]),
         }),
       )
       .default([]),
@@ -117,6 +118,8 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
     names.add(v);
   };
   const contacts = new Map(s.contacts.map((c) => [c.id, c]));
+  const ownerAvatar =
+    s.content.wechat?.find((i) => i.folder === "我")?.avatar || "";
   s.contacts.forEach((c, i) => unique(c.id, `contacts.${i}.id`));
   const configuredIds = s.installedApps.map((a) =>
     typeof a === "string" ? a : a.id,
@@ -164,7 +167,7 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
   s.contacts.forEach((c, n) => {
     if (c.avatar && !safeMedia(c.avatar))
       fail(`contacts.${n}.avatar`, "无效头像");
-    if (installed.has("contacts"))
+    if (installed.has("contacts") && c.apps.includes("contacts"))
       add(
         "contacts",
         {
@@ -202,7 +205,12 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
             senderId === "owner"
               ? s.phone.owner
               : contacts.get(senderId || "")?.name || m.sender || s.phone.owner,
-          avatar: m.avatar || contacts.get(senderId || "")?.avatar || "",
+          avatar:
+            m.avatar ||
+            (senderId === "owner"
+              ? ownerAvatar
+              : contacts.get(senderId || "")?.avatar) ||
+            "",
           outgoing: senderId === "owner" || m.outgoing,
           meta: {
             ...m.meta,

@@ -374,7 +374,10 @@ export function WeChatSkin(p: SkinProps) {
                 )
                 .map((t) => {
                   const list = p.items.filter((i) => i.title === t),
-                    last = list.at(-1)!;
+                    last = list.at(-1)!,
+                    peerAvatar = [...list]
+                      .reverse()
+                      .find((i) => i.sender !== p.owner && i.avatar)?.avatar;
                   return (
                     <button
                       className="wx-chat-row"
@@ -386,7 +389,7 @@ export function WeChatSkin(p: SkinProps) {
                       }}
                     >
                       <span className="wx-chat-avatar">
-                        <Avatar name={t} src={last.avatar} />
+                        <Avatar name={t} src={peerAvatar} />
                         {!readThreads.includes(t) &&
                           list.some((i) => !i.read) && (
                             <b className="wx-unread">

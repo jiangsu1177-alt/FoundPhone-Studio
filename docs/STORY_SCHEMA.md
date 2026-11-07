@@ -7,7 +7,7 @@
 |scriptVersion/id/title/revision|脚本版本1、稳定作品ID、标题、正整数内容修订号|
 |description/phone|简介；机主owner、date、time、passcode、wallpaper、theme等|
 |installedApps|注册 App ID，或完整 App 配置（名称、图标、文件夹、Dock、visible、installed）；顺序即桌面顺序|
-|contacts|id、name、phone、avatar、bio；owner 保留给机主|
+|contacts|id、name、phone、avatar、bio；apps 可指定联系人在哪些 App 的通讯录中出现，默认仅系统通讯录；owner 保留给机主|
 |chats|稳定会话id、app、title、participants、messages；消息需要id/body，可带senderId、time、media、kind等|
 |content|按 App ID 保存 Item 数组；记录id/title/body/time、hidden、password、unlock、folder、meta等|
 |variables|字符串/数字/布尔初值|

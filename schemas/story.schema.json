@@ -150,6 +150,15 @@
           "bio": {
             "default": "",
             "type": "string"
+          },
+          "apps": {
+            "default": [
+              "contacts"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         },
         "required": [
@@ -157,7 +166,8 @@
           "name",
           "phone",
           "avatar",
-          "bio"
+          "bio",
+          "apps"
         ],
         "additionalProperties": false
       }
