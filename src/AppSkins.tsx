@@ -132,7 +132,7 @@ function MessageList({
   return (
     <div className={`skin-messages ${whatsapp ? "wa-wallpaper" : ""}`}>
       <div className="skin-date">{dateLabel}</div>
-      {items.map((i) => (
+      {items.map((i) =>
         i.kind === "event" ? (
           <div key={i.id} className="skin-system-event">
             {i.body}
@@ -168,8 +168,8 @@ function MessageList({
               <Avatar name={i.sender} src={i.avatar} />
             )}
           </div>
-        )
-      ))}
+        ),
+      )}
     </div>
   );
 }
@@ -227,16 +227,16 @@ export function WeChatSkin(p: SkinProps) {
     (i) => i.folder === "朋友圈" || i.kind === "post",
   );
   const momentGroups = Array.from(
-    posts.reduce((groups, item) => {
-      const key = item.meta.momentGroup || item.id;
-      const group = groups.get(key) || [];
-      group.push(item);
-      groups.set(key, group);
-      return groups;
-    }, new Map<string, Item[]>()).values(),
-  ).sort(
-    (a, b) => momentTimestamp(b[0]!.time) - momentTimestamp(a[0]!.time),
-  );
+    posts
+      .reduce((groups, item) => {
+        const key = item.meta.momentGroup || item.id;
+        const group = groups.get(key) || [];
+        group.push(item);
+        groups.set(key, group);
+        return groups;
+      }, new Map<string, Item[]>())
+      .values(),
+  ).sort((a, b) => momentTimestamp(b[0]!.time) - momentTimestamp(a[0]!.time));
   return (
     <div
       className="wechat-ui independent-skin"
@@ -247,7 +247,9 @@ export function WeChatSkin(p: SkinProps) {
     >
       <div className="app-nav wx-nav">
         <button
-          aria-label={utility || p.thread || moments ? "返回" : "收藏"}
+          aria-label={
+            utility || p.thread || moments || tab === "通讯录" ? "返回" : "收藏"
+          }
           onClick={() =>
             utility
               ? setUtility("")
@@ -255,10 +257,12 @@ export function WeChatSkin(p: SkinProps) {
                 ? p.onThread("")
                 : moments
                   ? setMoments(false)
-                  : setUtility("收藏")
+                  : tab === "通讯录"
+                    ? setTab("微信")
+                    : setUtility("收藏")
           }
         >
-          {utility || p.thread || moments ? (
+          {utility || p.thread || moments || tab === "通讯录" ? (
             <ChevronLeft size={22} />
           ) : (
             <Star size={22} />
@@ -271,7 +275,13 @@ export function WeChatSkin(p: SkinProps) {
         </strong>
         <button
           aria-label={
-            p.creator ? "新增内容" : p.thread ? "聊天详情" : "微信菜单"
+            p.creator
+              ? "新增内容"
+              : p.thread
+                ? "聊天详情"
+                : tab === "通讯录"
+                  ? "通讯录选项"
+                  : "微信菜单"
           }
           onClick={
             p.creator
@@ -279,7 +289,11 @@ export function WeChatSkin(p: SkinProps) {
               : () => (p.thread ? setUtility("聊天信息") : setMenu(!menu))
           }
         >
-          {p.thread ? <MoreHorizontal size={22} /> : <CirclePlus size={22} />}
+          {p.thread || tab === "通讯录" ? (
+            <MoreHorizontal size={22} />
+          ) : (
+            <CirclePlus size={22} />
+          )}
         </button>
       </div>
       {menu && (
@@ -368,10 +382,7 @@ export function WeChatSkin(p: SkinProps) {
             const songShare = post.meta.shareType === "song";
             const mediaItems = group.filter((item) => item.media);
             return (
-              <article
-                key={post.id}
-                className="wx-moment-post"
-              >
+              <article key={post.id} className="wx-moment-post">
                 <Avatar
                   name={post.sender}
                   src={
@@ -390,9 +401,7 @@ export function WeChatSkin(p: SkinProps) {
                         alt="Queen 专辑封面"
                       />
                       <div>
-                        <strong>
-                          {post.meta.songTitle || post.title}
-                        </strong>
+                        <strong>{post.meta.songTitle || post.title}</strong>
                         <small>{post.meta.platform || "网易云音乐"}</small>
                       </div>
                     </div>
@@ -485,7 +494,22 @@ export function WeChatSkin(p: SkinProps) {
             </>
           ) : tab === "通讯录" ? (
             <>
-              <div className="wx-section-label">联系人</div>
+              <div className="wx-contact-shortcuts" aria-label="联系人快捷入口">
+                {[
+                  [User, "新的朋友", "#fa9d3b"],
+                  [Users, "群聊", "#2782d7"],
+                  [Grid, "标签", "#28a7a1"],
+                  [MessageCircle, "公众号", "#07c160"],
+                ].map(([Icon, label, color]) => {
+                  const Glyph = Icon as typeof User;
+                  return (
+                    <div className="wx-contact-shortcut" key={String(label)}>
+                      <Glyph size={22} style={{ color: String(color) }} />
+                      <span>{String(label)}</span>
+                    </div>
+                  );
+                })}
+              </div>
               {contacts.map((c) => (
                 <button
                   key={c}
@@ -502,7 +526,7 @@ export function WeChatSkin(p: SkinProps) {
                     name={c}
                     src={p.items.find((i) => i.sender === c)?.avatar}
                   />
-                  {c}
+                  <span>{c}</span>
                 </button>
               ))}
             </>
@@ -1109,3 +1133,4 @@ export function InstagramSkin(p: SkinProps) {
     </div>
   );
 }
+
