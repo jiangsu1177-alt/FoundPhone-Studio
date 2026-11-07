@@ -179,6 +179,21 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
         },
         `contacts.${n}`,
       );
+    if (installed.has("wechat") && c.apps.includes("wechat"))
+      add(
+        "wechat",
+        {
+          id: `wechat-contact-${c.id}`,
+          title: c.name,
+          body: c.bio,
+          sender: c.name,
+          kind: "event",
+          folder: "联系人",
+          avatar: c.avatar,
+          meta: { wechatContactOnly: "true", contactId: c.id },
+        },
+        `contacts.${n}.wechat`,
+      );
   });
   s.chats.forEach((chat, n) => {
     unique(chat.id, `chats.${n}.id`);
@@ -320,3 +335,4 @@ export function compileStory(raw: unknown): { story: Story; work: Work } {
   });
   return { story: s, work };
 }
+
