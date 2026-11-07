@@ -886,6 +886,12 @@
 .ios18 .wechat-ui[data-utility="true"] .wx-nav > button:first-child {
   visibility: visible;
 }
+.ios18 .wechat-ui[data-tab="通讯录"] .wx-nav > button:first-child,
+.ios18 .wechat-ui[data-moments="true"] .wx-nav > button:first-child,
+.ios18 .wechat-ui[data-thread="true"] .wx-nav > button:first-child,
+.ios18 .wechat-ui[data-utility="true"] .wx-nav > button:first-child {
+  visibility: visible !important;
+}
 .ios18 .wechat-ui {
   position: relative;
 }

@@ -167,11 +167,12 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   width: 100%;
   height: 56px;
   min-height: 56px;
   gap: 12px;
-  padding: 8px 16px;
+  padding: 8px 13px;
   color: rgba(0, 0, 0, 0.9);
   background: #fff;
   border: 0;
@@ -198,6 +199,11 @@
   visibility: hidden;
 }
 .ios18 .wechat-ui[data-tab="通讯录"] .wx-nav > button:first-child {
+  visibility: visible;
+}
+.ios18 .wechat-ui[data-moments="true"] .wx-nav > button:first-child,
+.ios18 .wechat-ui[data-thread="true"] .wx-nav > button:first-child,
+.ios18 .wechat-ui[data-utility="true"] .wx-nav > button:first-child {
   visibility: visible;
 }
 .ios18 .wechat-ui .wx-chat-row {
@@ -812,4 +818,3 @@
   background: #fafafa;
   color: #ffadb7;
 }
-
