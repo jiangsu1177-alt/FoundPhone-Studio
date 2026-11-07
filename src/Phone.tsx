@@ -89,7 +89,6 @@ export function AppIcon({
             <img
               src={safeMedia(custom)}
               alt="自定义图标"
-              style={id === "tonghuashun" ? { objectPosition: "center 10%" } : undefined}
             />
           ) : (
             <span>{custom.slice(0, 2)}</span>
@@ -270,6 +269,7 @@ function PhoneRuntime({
       if (!recent.includes(id) && id !== app) appSnapshots.current.delete(id);
   };
   const open = (id: string) => {
+    if (id === "tonghuashun") return;
     if (!work.apps.some((a) => a.id === id && a.installed)) return;
     setApp(id);
     setKeyboard(false);
