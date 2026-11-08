@@ -72,6 +72,60 @@
       "dock": false,
       "folder": "",
       "icon": ""
+    },
+    {
+      "id": "nytimes",
+      "name": "NYTimes",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "jinrongjie",
+      "name": "金融界",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "robinhood",
+      "name": "Robinhood",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "wsj",
+      "name": "WSJ",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "bloomberg",
+      "name": "Bloomberg",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "redbook",
+      "name": "小红书",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
     }
   ],
   "contacts": [

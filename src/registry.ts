@@ -33,6 +33,10 @@ import {
   Send,
   Tv,
   Briefcase,
+  Newspaper,
+  TrendingUp,
+  Feather,
+  Landmark,
   type LucideIcon,
 } from "lucide-react";
 export type EngineKind =
@@ -182,6 +186,11 @@ const definitions: [
   ["appstore", "App Store", "system", "#087cff", ShoppingBag, ["搜索"]],
   ["threads", "Threads", "social", "#4d5150", AtSign, ["动态", "回复"]],
   ["workbuddy", "WorkBuddy", "document", "#31a56f", Briefcase, ["内容"]],
+  ["nytimes", "NYTimes", "document", "#3f4753", Newspaper, ["内容"]],
+  ["jinrongjie", "金融界", "document", "#d0453e", TrendingUp, ["内容"]],
+  ["robinhood", "Robinhood", "document", "#21ce99", Feather, ["内容"]],
+  ["wsj", "WSJ", "document", "#333a41", Newspaper, ["内容"]],
+  ["bloomberg", "Bloomberg", "document", "#1a4fd6", Landmark, ["内容"]],
 ];
 export const registry: AppPlugin[] = definitions.map(
   ([id, name, engine, color, icon, tabs]) => ({

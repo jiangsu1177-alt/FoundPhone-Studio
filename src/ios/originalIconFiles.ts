@@ -49,4 +49,9 @@ export const originalIconFiles: Record<string, string> = {
   reminders: "reminders.jpg",
   kakao: "kakao.jpg",
   workbuddy: "workbuddy.jpg",
+  nytimes: "nytimes.png",
+  jinrongjie: "jinrongjie.png",
+  robinhood: "robinhood.png",
+  wsj: "wsj.jpg",
+  bloomberg: "bloomberg.jpg",
 };

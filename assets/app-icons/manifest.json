@@ -195,6 +195,26 @@
     "workbuddy": {
       "file": "workbuddy.jpg",
       "sha256": "13816a75364f5cd8de00aa33ecf06fd14527095259f9d65c89ff11fb883df817"
+    },
+    "nytimes": {
+      "file": "nytimes.png",
+      "sha256": "d11b463124c3166e3dd067b3efe5bd32dd108eb79e86fb8313d54c32764c7036"
+    },
+    "jinrongjie": {
+      "file": "jinrongjie.png",
+      "sha256": "fd4bbcb9102cfdc6a29a38ab74c4c02900fc653bc797718e08356c69b3e0dd0d"
+    },
+    "robinhood": {
+      "file": "robinhood.png",
+      "sha256": "aabdc0470b29894b8b84df9efb53c01d4850649de7c2bf56c55759af5590f957"
+    },
+    "wsj": {
+      "file": "wsj.jpg",
+      "sha256": "370835ea78674d9a566ad69674ae33860039b811e4a6c485b30c103936fef431"
+    },
+    "bloomberg": {
+      "file": "bloomberg.jpg",
+      "sha256": "c84d729c2f36a0b50c3c64b45e9620812bf6539685b256da6b9677d598c1e2cf"
     }
   }
 }
