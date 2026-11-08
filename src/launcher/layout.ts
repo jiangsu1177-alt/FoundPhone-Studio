@@ -57,7 +57,7 @@ export function defaultLayout(input: Work): DeviceLayout {
   return {
     version: 1,
     workId: w.id,
-    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 1 : 0,
+    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 2 : 0,
     apps: structuredClone(w.apps)
       .sort((a, b) => (a.id === "appstore" ? -1 : b.id === "appstore" ? 1 : 0))
       .map((a) =>
@@ -117,6 +117,16 @@ export function validateLayout(raw: unknown, input: Work) {
       ...layout.order.filter((id) => !visibleApps.includes(id)),
     ];
     layout.previewLayoutRevision = 1;
+  }
+  if (w.id === "ui-test-phone-v2" && layout.previewLayoutRevision < 2) {
+    const safari = layout.apps.find((app) => app.id === "safari");
+    if (safari) safari.folder = "";
+    delete layout.positions.safari;
+    layout.order = [
+      "safari",
+      ...layout.order.filter((id) => id !== "safari"),
+    ];
+    layout.previewLayoutRevision = 2;
   }
   const entries = homeEntries(layout),
     packed = packHome(entries, layout.positions);
@@ -297,3 +307,4 @@ export function moveHome(layout: DeviceLayout, key: string, target: string) {
   order.splice(to, 0, key);
   layout.order = order;
 }
+
