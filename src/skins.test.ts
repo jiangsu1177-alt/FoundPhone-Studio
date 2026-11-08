@@ -11,7 +11,7 @@ describe("independent app coverage and authored attributes", () => {
       "whatsapp",
       "instagram",
       "calculator",
-      "settings", "appstore", "tonghuashun",
+      "settings", "appstore", "tonghuashun", "workbuddy",
     ];
     expect(Object.keys(catalogSkins)).toHaveLength(44);
     for (const app of registry)

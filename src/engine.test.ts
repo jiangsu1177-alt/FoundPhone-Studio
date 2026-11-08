@@ -110,7 +110,7 @@ describe("import and schema safety", () => {
   });
   it("registers all 47 named apps with editable story data", () => {
     const w = createWork();
-    expect(registry).toHaveLength(50);
+    expect(registry).toHaveLength(51);
     for (const a of registry) {
       expect(w.apps.some((x) => x.id === a.id)).toBe(true);
       if (a.id === "tonghuashun") {

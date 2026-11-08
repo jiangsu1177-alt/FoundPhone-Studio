@@ -63,7 +63,16 @@
     "settings",
     "netease",
     "snapchat",
-    "whatsapp"
+    "whatsapp",
+    {
+      "id": "workbuddy",
+      "name": "WorkBuddy",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    }
   ],
   "contacts": [
     {
