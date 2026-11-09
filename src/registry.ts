@@ -162,6 +162,7 @@ const definitions: [
   ],
   ["line", "LINE", "messaging", "#5db873", MessageCircle, ["聊天", "好友"]],
   ["snapchat", "Snapchat", "social", "#ccbb49", Camera, ["动态", "回忆"]],
+  ["tinder", "Tinder", "social", "#fd5068", Heart, ["聊天", "快拍", "回忆"]],
   ["facebook", "Facebook", "social", "#587bb5", Users, ["动态", "个人主页"]],
   [
     "messenger",

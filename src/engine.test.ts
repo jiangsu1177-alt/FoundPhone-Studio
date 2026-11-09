@@ -90,6 +90,9 @@ describe("import and schema safety", () => {
     expect(safeMedia("data:image/svg+xml;base64,PHN2Zz4=")).toBe("");
     expect(safeMedia("https://example.com/image.png")).toBe("");
     expect(safeMedia("data:image/png;base64,YQ==")).not.toBe("");
+    expect(safeMedia("./story-assets/0123456789abcdef.jpg")).not.toBe("");
+    expect(safeMedia("../story-assets/photo.jpg")).toBe("");
+    expect(safeMedia("./story-assets/photo.jpg")).toBe("");
   });
   it("parses script and explains invalid lines", () => {
     const r = parseChat(
@@ -108,9 +111,9 @@ describe("import and schema safety", () => {
     expect(r.items[0].body).toBe("你好,世界\n第二行");
     expect(parseCsv("a,b,c\n1,2,3").errors).toHaveLength(1);
   });
-  it("registers all 47 named apps with editable story data", () => {
+  it("registers all 48 named apps with editable story data", () => {
     const w = createWork();
-    expect(registry).toHaveLength(56);
+    expect(registry).toHaveLength(57);
     for (const a of registry) {
       expect(w.apps.some((x) => x.id === a.id)).toBe(true);
       if (a.id === "tonghuashun") {
