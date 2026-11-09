@@ -427,9 +427,6 @@
   left: auto;
   right: -5px;
 }
-.ios18 .wechat-ui .wx-message-time {
-  display: none;
-}
 .ios18 .wechat-ui .skin-date {
   font-size: 12px;
   margin-bottom: 22px;
