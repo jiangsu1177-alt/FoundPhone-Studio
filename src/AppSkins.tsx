@@ -83,6 +83,27 @@ function ItemMedia({ item }: { item: Item }) {
     </div>
   );
 }
+function momentTimestamp(time: string) {
+  const iso = Date.parse(time.replace(" ", "T"));
+  if (!Number.isNaN(iso)) return iso;
+  const chinese = /^(\d{1,2})月(\d{1,2})日(?:\s+(\d{1,2}):(\d{2}))?$/.exec(
+    time,
+  );
+  if (!chinese) return 0;
+  return new Date(
+    2026,
+    Number(chinese[1]) - 1,
+    Number(chinese[2]),
+    Number(chinese[3] || 0),
+    Number(chinese[4] || 0),
+  ).getTime();
+}
+function momentTimeLabel(time: string) {
+  const timestamp = momentTimestamp(time);
+  if (!timestamp) return time;
+  const date = new Date(timestamp);
+  return `${date.getMonth() + 1}月${date.getDate()}日 ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+}
 function chatTimestampLabel(time: string) {
   const timestamp = Date.parse(time.replace(" ", "T"));
   if (Number.isNaN(timestamp)) return time;
