@@ -248,12 +248,15 @@
   top: 13px;
 }
 .ios18 .wechat-ui .wx-message-time {
-  display: block;
-  margin-top: 4px;
-  color: rgba(0, 0, 0, 0.45);
-  font-size: 10px;
-  line-height: 1;
-  text-align: right;
+  display: none;
+}
+.ios18 .wechat-ui .wx-chat-time-separator {
+  align-self: center;
+  margin: 0 0 2px;
+  color: #a6a6a6;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: center;
 }
 .ios18 .wechat-ui .wx-moment-likes {
   display: flex;
