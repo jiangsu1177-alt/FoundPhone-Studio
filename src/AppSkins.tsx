@@ -1,6 +1,6 @@
 import { NativeComposer } from "./DeviceSystem";
 import { useSkinState } from "./skinState";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   ChevronLeft,
   Plus,
@@ -83,24 +83,9 @@ function ItemMedia({ item }: { item: Item }) {
     </div>
   );
 }
-function momentTimestamp(time: string) {
-  const iso = Date.parse(time.replace(" ", "T"));
-  if (!Number.isNaN(iso)) return iso;
-  const chinese = /^(\d{1,2})月(\d{1,2})日(?:\s+(\d{1,2}):(\d{2}))?$/.exec(
-    time,
-  );
-  if (!chinese) return 0;
-  return new Date(
-    2026,
-    Number(chinese[1]) - 1,
-    Number(chinese[2]),
-    Number(chinese[3] || 0),
-    Number(chinese[4] || 0),
-  ).getTime();
-}
-function momentTimeLabel(time: string) {
-  const timestamp = momentTimestamp(time);
-  if (!timestamp) return time;
+function chatTimestampLabel(time: string) {
+  const timestamp = Date.parse(time.replace(" ", "T"));
+  if (Number.isNaN(timestamp)) return time;
   const date = new Date(timestamp);
   return `${date.getMonth() + 1}月${date.getDate()}日 ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 }
@@ -110,12 +95,14 @@ function MessageList({
   onItem,
   onRead,
   whatsapp = false,
+  wechat = false,
 }: {
   items: Item[];
   creator: boolean;
   onItem: (i: Item) => void;
   onRead: (id: string) => void;
   whatsapp?: boolean;
+  wechat?: boolean;
 }) {
   const time = items[0]?.time || "",
     date = time.slice(0, 10),
@@ -129,19 +116,39 @@ function MessageList({
     ).getUTCDay();
     return `${Number(month)}月${Number(day)}日 周${weekday[dayOfWeek]}`;
   })();
+  const timeSeparators = new Set<string>();
+  if (wechat) {
+    let lastShownAt = Number.NaN;
+    let lastShownDay = "";
+    for (const item of items) {
+      const timestamp = Date.parse(item.time.replace(" ", "T"));
+      if (Number.isNaN(timestamp)) continue;
+      const day = item.time.slice(0, 10);
+      if (
+        Number.isNaN(lastShownAt) ||
+        day !== lastShownDay ||
+        timestamp - lastShownAt >= 15 * 60 * 1000
+      ) {
+        timeSeparators.add(item.id);
+        lastShownAt = timestamp;
+        lastShownDay = day;
+      }
+    }
+  }
   return (
     <div className={`skin-messages ${whatsapp ? "wa-wallpaper" : ""}`}>
-      <div className="skin-date">{dateLabel}</div>
-      {items.map((i) =>
-        i.kind === "event" ? (
-          <div key={i.id} className="skin-system-event">
-            {i.body}
-          </div>
-        ) : (
-          <div
-            key={i.id}
-            className={`skin-message ${i.outgoing ? "outgoing" : ""}`}
-          >
+      {!wechat && <div className="skin-date">{dateLabel}</div>}
+      {items.map((i) => (
+        <Fragment key={i.id}>
+          {wechat && timeSeparators.has(i.id) && (
+            <div className="wx-chat-time-separator">
+              {chatTimestampLabel(i.time)}
+            </div>
+          )}
+          {i.kind === "event" ? (
+            <div className="skin-system-event">{i.body}</div>
+          ) : (
+            <div className={`skin-message ${i.outgoing ? "outgoing" : ""}`}>
             {!whatsapp && !i.outgoing && (
               <Avatar name={i.sender} src={i.avatar} />
             )}
@@ -167,9 +174,10 @@ function MessageList({
             {!whatsapp && i.outgoing && (
               <Avatar name={i.sender} src={i.avatar} />
             )}
-          </div>
-        ),
-      )}
+            </div>
+          )}
+        </Fragment>
+      ))}
     </div>
   );
 }
@@ -367,6 +375,7 @@ export function WeChatSkin(p: SkinProps) {
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
+            wechat
           />
           <Compose creator={p.creator} onAdd={p.onAdd} />
         </>
