@@ -55,6 +55,15 @@ const native = new Set([
 /** Code-drawn artwork; no extracted Apple bitmap, SF Symbol or font is embedded. */
 function DrawnArtwork({ id, date }: { id: string; date?: string }) {
   const uid = useId().replaceAll(":", "");
+  if (id === "tinder") {
+    return (
+      <img
+        src="assets/app-icons/tinder.jpg"
+        alt="Tinder"
+        style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "22%" }}
+      />
+    );
+  }
   if (detailedIcons.has(id)) return <DetailedArtwork id={id} />;
   if (!native.has(id)) {
     const Icon = getApp(id).icon;

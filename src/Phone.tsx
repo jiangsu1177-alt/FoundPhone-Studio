@@ -84,7 +84,13 @@ export function AppIcon({
   return (
     <span className={`app-icon-wrap ${small ? "small" : ""}`}>
       <span className="app-icon" style={{ background: a.color }}>
-        {custom ? (
+        {id === "tinder" ? (
+          <img
+            src="assets/app-icons/tinder.jpg"
+            alt="tinder"
+            style={{ width: "100%", height: "100%", borderRadius: "22%", objectFit: "cover" }}
+          />
+        ) : custom ? (
           safeMedia(custom) ? (
             <img
               src={safeMedia(custom)}
