@@ -247,6 +247,29 @@
   color: #b7b7b7;
   top: 13px;
 }
+.ios18 .wechat-ui .wx-message-time {
+  display: block;
+  margin-top: 4px;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 10px;
+  line-height: 1;
+  text-align: right;
+}
+.ios18 .wechat-ui .wx-moment-likes {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin-top: 7px;
+  padding: 6px 8px;
+  background: #f7f7f7;
+  color: #576b95;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.ios18 .wechat-ui .wx-moment-likes svg {
+  flex: none;
+  margin-top: 1px;
+}
 .ios18 .wechat-ui .wx-bottom {
   height: 59px;
   min-height: 59px;
