@@ -191,7 +191,6 @@ const definitions: [
   ["robinhood", "Robinhood", "document", "#21ce99", Feather, ["内容"]],
   ["wsj", "WSJ", "document", "#333a41", Newspaper, ["内容"]],
   ["bloomberg", "Bloomberg", "document", "#1a4fd6", Landmark, ["内容"]],
-  ["tinder", "Tinder", "document", "#fd5068", Heart, ["内容"]],
 ];
 export const registry: AppPlugin[] = definitions.map(
   ([id, name, engine, color, icon, tabs]) => ({

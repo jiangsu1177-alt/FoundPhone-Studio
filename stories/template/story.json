@@ -65,24 +65,6 @@
     "snapchat",
     "whatsapp",
     {
-      "id": "workbuddy",
-      "name": "WorkBuddy",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    {
-      "id": "tinder",
-      "name": "Tinder",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    {
       "id": "nytimes",
       "name": "NYTimes",
       "installed": true,
