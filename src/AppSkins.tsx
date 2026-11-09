@@ -386,6 +386,7 @@ export function WeChatSkin(p: SkinProps) {
           {momentGroups.map((group) => {
             const post = group[0]!;
             const songShare = post.meta.shareType === "song";
+            const likers = (post.meta.likedBy || "").split("、").filter(Boolean);
             const mediaItems = group.filter((item) => item.media);
             return (
               <article key={post.id} className="wx-moment-post">
@@ -429,6 +430,12 @@ export function WeChatSkin(p: SkinProps) {
                     <ItemMedia item={mediaItems[0]} />
                   ) : null}
                   <small>{momentTimeLabel(post.time)}</small>
+                  {likers.length > 0 && (
+                    <div className="wx-moment-likes">
+                      <Heart size={14} />
+                      <span>{likers.join("、")}</span>
+                    </div>
+                  )}
                 </div>
               </article>
             );
