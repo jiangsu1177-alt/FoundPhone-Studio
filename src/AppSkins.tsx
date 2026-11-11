@@ -125,11 +125,14 @@ function momentTimeLabel(time: string) {
   const date = new Date(timestamp);
   return `${date.getMonth() + 1}月${date.getDate()}日 ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 }
-function chatTimestampLabel(time: string) {
+function chatTimestampLabel(time: string, weekdayDate = false) {
   const timestamp = Date.parse(time.replace(" ", "T"));
   if (Number.isNaN(timestamp)) return time;
   const date = new Date(timestamp);
-  return `${date.getMonth() + 1}月${date.getDate()}日 ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+  const dateLabel = weekdayDate
+    ? `星期${["日", "一", "二", "三", "四", "五", "六"][date.getDay()]}`
+    : `${date.getMonth() + 1}月${date.getDate()}日`;
+  return `${dateLabel} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 }
 function MessageList({
   items,
@@ -138,6 +141,7 @@ function MessageList({
   onRead,
   whatsapp = false,
   wechat = false,
+  weekdayDate = false,
 }: {
   items: Item[];
   creator: boolean;
@@ -145,6 +149,7 @@ function MessageList({
   onRead: (id: string) => void;
   whatsapp?: boolean;
   wechat?: boolean;
+  weekdayDate?: boolean;
 }) {
   const time = items[0]?.time || "",
     date = time.slice(0, 10),
@@ -184,7 +189,7 @@ function MessageList({
         <Fragment key={i.id}>
           {wechat && timeSeparators.has(i.id) && (
             <div className="wx-chat-time-separator">
-              {chatTimestampLabel(i.time)}
+              {chatTimestampLabel(i.time, weekdayDate)}
             </div>
           )}
           {i.kind === "event" ? (
@@ -417,6 +422,7 @@ export function WeChatSkin(p: SkinProps) {
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
+            weekdayDate={p.thread === "辛xin"}
             wechat
           />
           <Compose creator={p.creator} onAdd={p.onAdd} />
