@@ -78,10 +78,13 @@ function Avatar({
   round?: boolean;
   src?: string;
 }) {
+  const avatar = safeMedia(src);
+  const imageAvatar =
+    avatar?.startsWith("data:image/") || avatar?.startsWith("./story-assets/");
   return (
     <span className={`skin-avatar ${round ? "round" : ""}`}>
-      {safeMedia(src)?.startsWith("data:image/") ? (
-        <img src={safeMedia(src)} alt="" />
+      {imageAvatar ? (
+        <img src={avatar} alt="" />
       ) : (
         name.slice(0, 1)
       )}
