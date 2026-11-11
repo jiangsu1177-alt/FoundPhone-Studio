@@ -665,6 +665,12 @@
   padding: 0;
   color: #fff;
 }
+.ios18 .calibrated-weather[data-daytime="true"] {
+  background: linear-gradient(#5189c5, #a2c7e5);
+}
+.ios18 .calibrated-weather[data-daytime="true"] .weather-stars {
+  opacity: 0;
+}
 .ios18 .weather-hour-grid strong {
   font-size: 15px;
   font-weight: 500;

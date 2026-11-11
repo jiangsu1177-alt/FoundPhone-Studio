@@ -382,10 +382,14 @@ export function WeatherSkin(p: Props) {
   const item = p.items[index] || p.items[0],
     hourly = listMeta(item, "hourly"),
     daily = listMeta(item, "daily"),
-    currentHour = Number(item?.time?.slice(11, 13)) || 0,
+    currentHour = Number(
+      p.virtualTime?.slice(0, 2) || item?.time?.slice(11, 13),
+    ) || 0,
+    isDaytime = currentHour >= 6 && currentHour < 18,
     upcomingHours = Array.from({ length: Math.min(6, hourly.length) }, (_, n) =>
       hourly[(currentHour + n) % hourly.length],
     );
+  const WeatherArt = isDaytime ? CloudSun : MoonStar;
   const read = () => {
     if (item) {
       if (p.creator || item.password) p.onItem(item);
@@ -396,6 +400,7 @@ export function WeatherSkin(p: Props) {
     <div
       className="catalog-skin native-weather calibrated-weather"
       data-empty={!item}
+      data-daytime={isDaytime}
     >
       <div className="weather-stars" aria-hidden="true" />
       <div className="weather-native-scroll">
@@ -408,7 +413,7 @@ export function WeatherSkin(p: Props) {
             <span>最低 {meta(item, "low", "—")}°</span>
           </div>
           <p>{meta(item, "condition", "暂无天气数据")}</p>
-          <MoonStar className="weather-moon-art" size={55} />
+          <WeatherArt className="weather-moon-art" size={55} />
         </section>
         <button
           className="weather-native-card weather-air-quality"
