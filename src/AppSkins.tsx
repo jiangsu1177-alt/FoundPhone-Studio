@@ -32,6 +32,26 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import { safeMedia, type Item, type UiValue } from "./schema";
+
+const WECHAT_TAB_ICONS = [
+  { label: "微信", icon: "chats.svg", activeIcon: "chats-active.svg" },
+  {
+    label: "通讯录",
+    icon: "contacts.svg",
+    activeIcon: "contacts-active.svg",
+  },
+  {
+    label: "发现",
+    icon: "discover.svg",
+    activeIcon: "discover-active.svg",
+  },
+  { label: "我", icon: "me.svg", activeIcon: "me-active.svg" },
+].map((tab) => ({
+  ...tab,
+  icon: `${import.meta.env.BASE_URL}wechat-tab-icons/${tab.icon}`,
+  activeIcon: `${import.meta.env.BASE_URL}wechat-tab-icons/${tab.activeIcon}`,
+}));
+
 export type SkinProps = {
   ui?: Record<string, UiValue>;
   onUi?: (key: string, value: UiValue) => void;
@@ -671,18 +691,20 @@ export function WeChatSkin(p: SkinProps) {
       )}
       {!p.thread && !moments && !utility && (
         <nav className="wx-bottom">
-          {[
-            { label: "微信", icon: MessageCircle },
-            { label: "通讯录", icon: Users },
-            { label: "发现", icon: Compass },
-            { label: "我", icon: User },
-          ].map((t) => (
+          {WECHAT_TAB_ICONS.map((t) => (
             <button
               className={tab === t.label ? "selected" : ""}
               key={t.label}
               onClick={() => setTab(t.label)}
+              aria-current={tab === t.label ? "page" : undefined}
             >
-              <t.icon size={21} />
+              <span className="wx-tab-icon" aria-hidden="true">
+                <img
+                  alt=""
+                  draggable={false}
+                  src={tab === t.label ? t.activeIcon : t.icon}
+                />
+              </span>
               <span>{t.label}</span>
             </button>
           ))}
