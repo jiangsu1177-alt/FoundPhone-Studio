@@ -61,6 +61,7 @@ export type SkinProps = {
   virtualDate?: string;
   name: string;
   items: Item[];
+  contactItems?: Item[];
   creator: boolean;
   onRead: (id: string) => void;
   onItem: (i: Item) => void;

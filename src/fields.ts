@@ -5,6 +5,7 @@ const fields: Record<string, Field[]> = {
     { key: "status", label: "通话状态" },
   ],
   contacts: [
+    { key: "phone", label: "电话" },
     { key: "number", label: "电话" },
     { key: "email", label: "电子邮箱" },
     { key: "company", label: "公司" },

@@ -21,7 +21,6 @@ import {
   Phone,
   Search,
   SkipForward,
-  Star,
   Users,
   Wallet,
 } from "lucide-react";
@@ -46,18 +45,36 @@ export function PhoneSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "最近通话");
   const [digits, setDigits] = useState(""),
     [call, setCall] = useState("");
-  const list = tab === "收藏" ? items.filter((i) => i.favorite) : items;
   return (
-    <div className="catalog-skin native-phone">
+    <div
+      className={`catalog-skin native-phone ${
+        tab === "通讯录" ? "native-contacts" : ""
+      }`}
+    >
       <Header p={p} />
       <div className="catalog-scroll">
-        <h1>{tab}</h1>
-        {tab === "拨号键盘" ? (
-          <div className="dialer">
-            <output>{digits || "输入号码"}</output>
-            <div>
-              {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map(
-                (k) => (
+        {tab === "通讯录" ? (
+          <ContactDirectoryContent p={p} items={p.contactItems ?? []} />
+        ) : tab === "拨号键盘" ? (
+          <>
+            <h1>{tab}</h1>
+            <div className="dialer">
+              <output>{digits || "输入号码"}</output>
+              <div>
+                {[
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "*",
+                  "0",
+                  "#",
+                ].map((k) => (
                   <button key={k} onClick={() => setDigits((s) => s + k)}>
                     {k}
                     <small>
@@ -77,29 +94,30 @@ export function PhoneSkin(p: Props) {
                       }
                     </small>
                   </button>
-                ),
-              )}
+                ))}
+              </div>
+              <button
+                className="dial-call"
+                disabled={!digits}
+                aria-label="模拟拨号"
+                onClick={() => {
+                  setCall(digits);
+                  const i = items.find((i) => meta(i, "number") === digits);
+                  if (i) p.onRead(i.id);
+                }}
+              >
+                <Phone size={24} />
+              </button>
+              <button onClick={() => setDigits((s) => s.slice(0, -1))}>
+                删除
+              </button>
             </div>
-            <button
-              className="dial-call"
-              disabled={!digits}
-              aria-label="模拟拨号"
-              onClick={() => {
-                setCall(digits);
-                const i = items.find((i) => meta(i, "number") === digits);
-                if (i) p.onRead(i.id);
-              }}
-            >
-              <Phone size={24} />
-            </button>
-            <button onClick={() => setDigits((s) => s.slice(0, -1))}>
-              删除
-            </button>
-          </div>
+          </>
         ) : (
           <>
+            <h1>{tab}</h1>
             <SearchBox value={q} set={setQ} />
-            {list.map((i) => (
+            {items.map((i) => (
               <button
                 className={`call-row ${meta(i, "status") === "未接" ? "missed" : ""}`}
                 key={i.id}
@@ -116,15 +134,15 @@ export function PhoneSkin(p: Props) {
                 <time>{i.time.slice(5, 10)}</time>
               </button>
             ))}
-            <Empty items={list} />
+            <Empty items={items} />
           </>
         )}
       </div>
       <Tabs
-        tabs={["收藏", "最近通话", "通讯录", "拨号键盘"]}
+        tabs={["最近通话", "通讯录", "拨号键盘"]}
         value={tab}
         set={setTab}
-        icons={[<Star />, <Clock />, <Users />, <Grid />]}
+        icons={[<Clock />, <Users />, <Grid />]}
       />
       {call && (
         <div className="virtual-call">
@@ -140,50 +158,76 @@ export function PhoneSkin(p: Props) {
     </div>
   );
 }
-export function ContactsSkin(p: Props) {
-  const { q, setQ, items } = useContent(p, "所有联系人");
-  const selfCard = p.items.find((i) => meta(i, "selfCard") === "true"),
-    contacts = items.filter((i) => meta(i, "selfCard") !== "true"),
+function ContactDirectoryContent({
+  p,
+  items,
+}: {
+  p: Props;
+  items: Item[];
+}) {
+  const [q, setQ] = useState("");
+  const filtered = items.filter((i) =>
+    (
+      i.title +
+      i.body +
+      i.sender +
+      i.folder +
+      Object.values(i.meta ?? {}).join(" ")
+    )
+      .toLowerCase()
+      .includes(q.toLowerCase()),
+  );
+  const selfCard = items.find((i) => meta(i, "selfCard") === "true"),
+    contacts = filtered.filter((i) => meta(i, "selfCard") !== "true"),
     selfName = selfCard?.title || p.owner || "我的名片";
+  return (
+    <>
+      <h1>通讯录</h1>
+      <SearchBox value={q} set={setQ} />
+      <button
+        className="contact-self"
+        onClick={() => {
+          if (selfCard) p.onItem(selfCard);
+          else if (items[0]) p.onItem(items[0]);
+          else if (p.creator) p.onAdd();
+        }}
+      >
+        <Avatar name={selfName} src={selfCard?.avatar} />
+        <span>
+          <strong>{selfName}</strong>
+          <small>
+            {meta(selfCard, "phone", meta(selfCard, "number")) || "我的名片"}
+          </small>
+        </span>
+      </button>
+      {groupItems(contacts, "所有联系人").map((g) => (
+        <section key={g}>
+          <h4 className="native-section">{g}</h4>
+          {contacts
+            .filter((i) => (i.folder || "所有联系人") === g)
+            .sort((a, b) => a.title.localeCompare(b.title, "zh-CN"))
+            .map((i) => (
+              <Row
+                key={i.id}
+                item={i}
+                onItem={p.onItem}
+                leading={<Avatar name={i.title} src={i.avatar} />}
+                detail={meta(i, "phone", meta(i, "number"))}
+                showTime={false}
+              />
+            ))}
+        </section>
+      ))}
+      <Empty items={contacts} />
+    </>
+  );
+}
+export function ContactsSkin(p: Props) {
   return (
     <div className="catalog-skin native-contacts">
       <Header p={p} />
       <div className="catalog-scroll">
-        <h1>通讯录</h1>
-        <SearchBox value={q} set={setQ} />
-        <button
-          className="contact-self"
-          onClick={() => {
-            if (selfCard) p.onItem(selfCard);
-            else if (items[0]) p.onItem(items[0]);
-            else if (p.creator) p.onAdd();
-          }}
-        >
-          <Avatar name={selfName} src={selfCard?.avatar} />
-          <span>
-            <strong>{selfName}</strong>
-            <small>我的名片</small>
-          </span>
-        </button>
-        {groupItems(contacts, "所有联系人").map((g) => (
-          <section key={g}>
-            <h4 className="native-section">{g}</h4>
-            {contacts
-              .filter((i) => (i.folder || "所有联系人") === g)
-              .sort((a, b) => a.title.localeCompare(b.title, "zh-CN"))
-              .map((i) => (
-                <Row
-                  key={i.id}
-                  item={i}
-                  onItem={p.onItem}
-                  leading={<Avatar name={i.title} src={i.avatar} />}
-                  detail={meta(i, "phone")}
-                  showTime={false}
-                />
-              ))}
-          </section>
-        ))}
-        <Empty items={contacts} />
+        <ContactDirectoryContent p={p} items={p.items} />
       </div>
     </div>
   );

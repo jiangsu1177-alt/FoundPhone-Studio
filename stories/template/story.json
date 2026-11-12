@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 20,
+  "revision": 21,
   "phone": {
     "owner": "普通巧克力",
     "date": "2025-09-21",
@@ -139,7 +139,7 @@
     {
       "id": "xin",
       "name": "辛xin",
-      "phone": "138****0001",
+      "phone": "186****0248",
       "avatar": "./story-assets/5fd0846a86040525.jpg",
       "bio": "",
       "apps": [
@@ -149,7 +149,7 @@
     {
       "id": "mom",
       "name": "妈妈",
-      "phone": "138****0002",
+      "phone": "139****3721",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -159,7 +159,7 @@
     {
       "id": "dad",
       "name": "爸爸",
-      "phone": "138****0003",
+      "phone": "137****6805",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -169,7 +169,7 @@
     {
       "id": "sister",
       "name": "姐姐",
-      "phone": "138****0004",
+      "phone": "158****4196",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -179,7 +179,7 @@
     {
       "id": "zhou-yuan",
       "name": "周予安",
-      "phone": "138****0005",
+      "phone": "188****7312",
       "avatar": "",
       "bio": "高中同学",
       "apps": [
@@ -189,7 +189,7 @@
     {
       "id": "chen-jianing",
       "name": "陈佳宁",
-      "phone": "138****0006",
+      "phone": "151****8054",
       "avatar": "",
       "bio": "大学同学",
       "apps": [
@@ -199,7 +199,7 @@
     {
       "id": "xu-chen",
       "name": "许晨",
-      "phone": "138****0007",
+      "phone": "136****2679",
       "avatar": "",
       "bio": "大学同学",
       "apps": [
@@ -209,7 +209,7 @@
     {
       "id": "lin-xiaoyu",
       "name": "林晓雨",
-      "phone": "138****0008",
+      "phone": "187****9530",
       "avatar": "",
       "bio": "社团朋友",
       "apps": [
@@ -219,7 +219,7 @@
     {
       "id": "zhao-yifan",
       "name": "赵一帆",
-      "phone": "138****0009",
+      "phone": "159****1443",
       "avatar": "",
       "bio": "老同学",
       "apps": [
@@ -227,19 +227,9 @@
       ]
     },
     {
-      "id": "fuxinbo",
-      "name": "付辛博",
-      "phone": "138****0010",
-      "avatar": "",
-      "bio": "",
-      "apps": [
-        "contacts"
-      ]
-    },
-    {
       "id": "samuel",
       "name": "Samuel",
-      "phone": "138****0011",
+      "phone": "177****6831",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -249,7 +239,7 @@
     {
       "id": "luisa",
       "name": "Luisa",
-      "phone": "138****0012",
+      "phone": "152****0987",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -259,7 +249,7 @@
     {
       "id": "michael-zhang-md",
       "name": "Michael Zhang (MD)",
-      "phone": "138****0013",
+      "phone": "185****2164",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -269,7 +259,7 @@
     {
       "id": "li-haoran-analyst",
       "name": "李浩然 Analyst",
-      "phone": "138****0014",
+      "phone": "133****7492",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -279,7 +269,7 @@
     {
       "id": "liu-an-nan-cfo",
       "name": "刘总 安南科技 CFO",
-      "phone": "138****0015",
+      "phone": "181****5328",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -289,7 +279,7 @@
     {
       "id": "james-qingran-partner",
       "name": "James（清然基金合伙人）",
-      "phone": "138****0016",
+      "phone": "176****4085",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -299,7 +289,7 @@
     {
       "id": "robert-lee-finance-pr",
       "name": "Robert Lee (财经公关)",
-      "phone": "138****0017",
+      "phone": "155****9273",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -309,7 +299,7 @@
     {
       "id": "coach-mike-fitness",
       "name": "Coach Mike (健身)",
-      "phone": "138****0018",
+      "phone": "189****3150",
       "avatar": "",
       "bio": "",
       "apps": [
@@ -566,7 +556,8 @@
         "kind": "text",
         "folder": "我的名片",
         "meta": {
-          "selfCard": "true"
+          "selfCard": "true",
+          "phone": "150****8642"
         }
       }
     ],
