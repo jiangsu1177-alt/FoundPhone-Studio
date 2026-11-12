@@ -177,6 +177,8 @@ export function ContactsSkin(p: Props) {
                   item={i}
                   onItem={p.onItem}
                   leading={<Avatar name={i.title} src={i.avatar} />}
+                  detail={meta(i, "phone")}
+                  showTime={false}
                 />
               ))}
           </section>

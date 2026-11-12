@@ -136,19 +136,23 @@ export function Row({
   onItem,
   leading,
   children,
+  detail,
+  showTime = true,
 }: {
   item: Item;
   onItem: (i: Item) => void;
   leading?: ReactNode;
   children?: ReactNode;
+  detail?: string;
+  showTime?: boolean;
 }) {
   return (
     <button className="catalog-row" onClick={() => onItem(item)}>
       {leading ?? <FileText size={22} />}
       <span>
         <strong>{item.title}</strong>
-        <p>{item.body.split("\n")[0]}</p>
-        <small>{item.time}</small>
+        <p>{detail ?? item.body.split("\n")[0]}</p>
+        {showTime && <small>{item.time}</small>}
       </span>
       {children ??
         (item.password ? (
