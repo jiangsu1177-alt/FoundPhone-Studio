@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 22,
+  "revision": 23,
   "phone": {
     "owner": "普通巧克力",
     "date": "2025-09-21",
@@ -871,7 +871,7 @@
           "songTitle": "Bohemian Rhapsody - Queen",
           "artist": "Queen",
           "platform": "网易云音乐",
-          "likedBy": "辛xin、周予安、陈佳宁"
+          "likedBy": "周予安、陈佳宁、辛xin"
         },
         "time": "2025-07-04 19:42",
         "sender": "普通巧克力",
@@ -895,7 +895,7 @@
         "richText": "",
         "meta": {
           "momentGroup": "wx-moments-photos-20260512",
-          "likedBy": "辛xin、许晨、林晓雨、赵一帆"
+          "likedBy": "许晨、林晓雨、赵一帆、辛xin"
         },
         "time": "2025-05-12 20:15",
         "sender": "普通巧克力",
@@ -982,18 +982,18 @@
         "comments": []
       },
       {
-        "id": "xin-moments-oct06-1",
+        "id": "xin-moments-aug31-photo-1",
         "title": "朋友圈照片",
-        "body": "📷",
+        "body": "周末宜发呆😳",
         "richText": "",
         "meta": {
-          "momentGroup": "wx-xin-moments-20251006"
+          "momentGroup": "wx-xin-moments-20250831"
         },
-        "time": "2025-10-06 19:20",
+        "time": "2025-08-31 14:32",
         "sender": "辛xin",
         "avatar": "./story-assets/5fd0846a86040525.jpg",
         "kind": "post",
-        "media": "./story-assets/c460f453f7c92130.jpg",
+        "media": "./story-assets/4226fc7f2ee53dae.jpg",
         "hidden": false,
         "unlock": "",
         "password": "",
@@ -1005,18 +1005,18 @@
         "comments": []
       },
       {
-        "id": "xin-moments-oct06-2",
+        "id": "xin-moments-aug31-photo-2",
         "title": "朋友圈照片",
         "body": "",
         "richText": "",
         "meta": {
-          "momentGroup": "wx-xin-moments-20251006"
+          "momentGroup": "wx-xin-moments-20250831"
         },
-        "time": "2025-10-06 19:20",
+        "time": "2025-08-31 14:32",
         "sender": "辛xin",
         "avatar": "./story-assets/5fd0846a86040525.jpg",
         "kind": "post",
-        "media": "./story-assets/0475f9f3797bb8c5.jpg",
+        "media": "./story-assets/21e2dd41b87d34da.jpg",
         "hidden": false,
         "unlock": "",
         "password": "",
@@ -1028,18 +1028,18 @@
         "comments": []
       },
       {
-        "id": "xin-moments-oct06-3",
+        "id": "xin-moments-aug31-photo-3",
         "title": "朋友圈照片",
         "body": "",
         "richText": "",
         "meta": {
-          "momentGroup": "wx-xin-moments-20251006"
+          "momentGroup": "wx-xin-moments-20250831"
         },
-        "time": "2025-10-06 19:20",
+        "time": "2025-08-31 14:32",
         "sender": "辛xin",
         "avatar": "./story-assets/5fd0846a86040525.jpg",
         "kind": "post",
-        "media": "./story-assets/c460f453f7c92130.jpg",
+        "media": "./story-assets/de375ab5c512751b.jpg",
         "hidden": false,
         "unlock": "",
         "password": "",
@@ -1051,18 +1051,64 @@
         "comments": []
       },
       {
-        "id": "xin-moments-oct09-song",
+        "id": "xin-moments-sep05-photo",
         "title": "朋友圈照片",
-        "body": "我的新歌《多久多久》上线啦，请大家多多支持吧～😁",
+        "body": "陪她出来散步 小姑娘怎么一不留神就长这么大了，哎",
         "richText": "",
         "meta": {
-          "momentGroup": "wx-xin-moments-20251009"
+          "momentGroup": "wx-xin-moments-20250905"
         },
-        "time": "2025-10-09 11:45",
+        "time": "2025-09-05 21:05",
         "sender": "辛xin",
         "avatar": "./story-assets/5fd0846a86040525.jpg",
         "kind": "post",
-        "media": "./story-assets/ba3599cbc55b7533.jpg",
+        "media": "./story-assets/a986432bf512f948.jpg",
+        "hidden": false,
+        "unlock": "",
+        "password": "",
+        "folder": "朋友圈",
+        "favorite": false,
+        "outgoing": false,
+        "read": true,
+        "likes": 0,
+        "comments": []
+      },
+      {
+        "id": "xin-moments-sep14-photo-1",
+        "title": "朋友圈照片",
+        "body": "闲来无事 调着玩🍹 调一杯环游世界。",
+        "richText": "",
+        "meta": {
+          "momentGroup": "wx-xin-moments-20250914"
+        },
+        "time": "2025-09-14 22:12",
+        "sender": "辛xin",
+        "avatar": "./story-assets/5fd0846a86040525.jpg",
+        "kind": "post",
+        "media": "./story-assets/c2caaeab3a35d62b.jpg",
+        "hidden": false,
+        "unlock": "",
+        "password": "",
+        "folder": "朋友圈",
+        "favorite": false,
+        "outgoing": false,
+        "read": true,
+        "likes": 0,
+        "comments": []
+      },
+      {
+        "id": "xin-moments-sep14-photo-2",
+        "title": "朋友圈照片",
+        "body": "",
+        "richText": "",
+        "meta": {
+          "momentGroup": "wx-xin-moments-20250914"
+        },
+        "time": "2025-09-14 22:12",
+        "sender": "辛xin",
+        "avatar": "./story-assets/5fd0846a86040525.jpg",
+        "kind": "post",
+        "media": "./story-assets/f9595b039d4aefdd.jpg",
         "hidden": false,
         "unlock": "",
         "password": "",
