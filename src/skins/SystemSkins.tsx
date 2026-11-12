@@ -45,6 +45,20 @@ export function PhoneSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "最近通话");
   const [digits, setDigits] = useState(""),
     [call, setCall] = useState("");
+  const keypadKeys: [string, string][] = [
+    ["1", ""],
+    ["2", "ABC"],
+    ["3", "DEF"],
+    ["4", "GHI"],
+    ["5", "JKL"],
+    ["6", "MNO"],
+    ["7", "PQRS"],
+    ["8", "TUV"],
+    ["9", "WXYZ"],
+    ["*", ""],
+    ["0", "+"],
+    ["#", ""],
+  ];
   return (
     <div
       className={`catalog-skin native-phone ${
@@ -61,38 +75,10 @@ export function PhoneSkin(p: Props) {
             <div className="dialer">
               <output>{digits || "输入号码"}</output>
               <div>
-                {[
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7",
-                  "8",
-                  "9",
-                  "*",
-                  "0",
-                  "#",
-                ].map((k) => (
-                  <button key={k} onClick={() => setDigits((s) => s + k)}>
-                    {k}
-                    <small>
-                      {
-                        (
-                          {
-                            "2": "ABC",
-                            "3": "DEF",
-                            "4": "GHI",
-                            "5": "JKL",
-                            "6": "MNO",
-                            "7": "PQRS",
-                            "8": "TUV",
-                            "9": "WXYZ",
-                          } as Record<string, string>
-                        )[k]
-                      }
-                    </small>
+                {keypadKeys.map(([key, letters]) => (
+                  <button key={key} onClick={() => setDigits((s) => s + key)}>
+                    {key}
+                    {letters && <small>{letters}</small>}
                   </button>
                 ))}
               </div>
