@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 21,
+  "revision": 22,
   "phone": {
     "owner": "普通巧克力",
     "date": "2025-09-21",
@@ -539,10 +539,90 @@
   "content": {
     "phone": [
       {
-        "id": "test-item-phone",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
+        "id": "call-michael-2025-09-20",
+        "title": "Michael Zhang (MD)",
+        "body": "",
+        "time": "2025-09-20",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "call-li-haoran-2025-09-20",
+        "title": "李浩然 Analyst",
+        "body": "",
+        "time": "2025-09-20",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "call-unknown-139-2025-09-20",
+        "title": "139****4471",
+        "body": "",
+        "time": "2025-09-20",
+        "kind": "text",
+        "meta": {
+          "number": "139****4471",
+          "status": "未接"
+        }
+      },
+      {
+        "id": "call-robert-2025-09-20",
+        "title": "Robert Lee (财经公关)",
+        "body": "",
+        "time": "2025-09-20",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "call-coach-mike-2025-09-20",
+        "title": "Coach Mike (健身)",
+        "body": "",
+        "time": "2025-09-20",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "call-unknown-021-2025-09-20-1205",
+        "title": "021-5****8806",
+        "body": "",
+        "time": "2025-09-20 12:05",
+        "kind": "text",
+        "meta": {
+          "number": "021-5****8806",
+          "status": "未接"
+        }
+      },
+      {
+        "id": "call-li-haoran-2025-09-19",
+        "title": "李浩然 Analyst",
+        "body": "",
+        "time": "2025-09-19",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "call-liu-cfo-2025-09-19",
+        "title": "刘总 安南科技 CFO",
+        "body": "",
+        "time": "2025-09-19",
+        "kind": "text",
+        "meta": {}
+      },
+      {
+        "id": "call-unknown-188-2025-09-19",
+        "title": "188****2907",
+        "body": "",
+        "time": "2025-09-19",
+        "kind": "text",
+        "meta": {
+          "number": "188****2907"
+        }
+      },
+      {
+        "id": "call-samuel-2025-09-19",
+        "title": "Samuel",
+        "body": "",
+        "time": "2025-09-19",
         "kind": "text",
         "meta": {}
       }

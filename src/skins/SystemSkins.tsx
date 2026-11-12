@@ -45,6 +45,17 @@ export function PhoneSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "最近通话");
   const [digits, setDigits] = useState(""),
     [call, setCall] = useState("");
+  const contactNames = new Set((p.contactItems ?? []).map((i) => i.title));
+  const groupedCalls = new Map<string, Item[]>();
+  for (const item of items) {
+    const date = item.time.slice(0, 10);
+    const group = groupedCalls.get(date) ?? [];
+    group.push(item);
+    groupedCalls.set(date, group);
+  }
+  const callGroups = [...groupedCalls.entries()].sort(([a], [b]) =>
+    b.localeCompare(a),
+  );
   const keypadKeys: [string, string][] = [
     ["1", ""],
     ["2", "ABC"],
@@ -103,22 +114,36 @@ export function PhoneSkin(p: Props) {
           <>
             <h1>{tab}</h1>
             <SearchBox value={q} set={setQ} />
-            {items.map((i) => (
-              <button
-                className={`call-row ${meta(i, "status") === "未接" ? "missed" : ""}`}
-                key={i.id}
-                onClick={() => p.onItem(i)}
-              >
-                <Phone size={17} />
-                <span>
-                  <strong>{i.title}</strong>
-                  <small>
-                    {meta(i, "number", i.sender)} ·{" "}
-                    {meta(i, "status", "通话记录")}
-                  </small>
-                </span>
-                <time>{i.time.slice(5, 10)}</time>
-              </button>
+            {callGroups.map(([date, calls]) => (
+              <section key={date}>
+                <h4 className="native-section">
+                  {/^\d{4}-(\d{2})-(\d{2})$/.test(date)
+                    ? `${Number(date.slice(5, 7))}.${Number(date.slice(8, 10))}`
+                    : date}
+                </h4>
+                {calls.map((i) => {
+                  const knownContact = contactNames.has(i.title);
+                  const number = knownContact
+                    ? ""
+                    : meta(i, "number", i.sender);
+                  const status = meta(i, "status", "通话记录");
+                  const time = /\s(\d{1,2}:\d{2})$/.exec(i.time)?.[1];
+                  return (
+                    <button
+                      className={`call-row ${status === "未接" ? "missed" : ""}`}
+                      key={i.id}
+                      onClick={() => p.onItem(i)}
+                    >
+                      <Phone size={17} />
+                      <span>
+                        <strong>{i.title}</strong>
+                        <small>{number ? `${number} · ${status}` : status}</small>
+                      </span>
+                      {time && <time>{time}</time>}
+                    </button>
+                  );
+                })}
+              </section>
             ))}
             <Empty items={items} />
           </>
