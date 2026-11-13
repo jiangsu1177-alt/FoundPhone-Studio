@@ -1,0 +1,23 @@
+{
+  "formatVersion": 1,
+  "conversations": [
+    {
+      "id": "x",
+      "contactName": "X",
+      "messages": [
+        { "id": "sep-1", "type": "time", "time": "9月19日 20:09" },
+        { "id": "m1", "type": "text", "sender": "match", "text": "hi", "time": "20:09" },
+        { "id": "m2", "type": "text", "sender": "match", "text": "33/183/68 1", "time": "20:10" },
+        { "id": "m3", "type": "emoji", "sender": "me", "text": "👋", "time": "20:11" },
+        { "id": "m4", "type": "text", "sender": "me", "text": "27 180 63", "time": "20:11" },
+        { "id": "m5", "type": "text", "sender": "match", "text": "约?", "time": "20:12" },
+        { "id": "m6", "type": "text", "sender": "me", "text": "ok", "time": "20:13" },
+        { "id": "sep-2", "type": "time", "time": "9月19日 20:43" },
+        { "id": "m7", "type": "text", "sender": "match", "text": "琬丽等你", "time": "20:43" },
+        { "id": "sep-3", "type": "time", "time": "9月19日 21:15" },
+        { "id": "m8", "type": "text", "sender": "me", "text": "我到大堂了", "time": "21:15" },
+        { "id": "m9", "type": "text", "sender": "match", "text": "回头，我看见你了", "time": "21:16" }
+      ]
+    }
+  ]
+}

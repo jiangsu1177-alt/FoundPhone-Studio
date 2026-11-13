@@ -3,6 +3,7 @@ import type { SkinProps } from "../AppSkins";
 const system = () => import("./SystemSkins");
 const messaging = () => import("./MessagingSkins");
 const social = () => import("./SocialSkins");
+const tinder = () => import("./TinderSkin");
 const media = () => import("./MediaSkins");
 const commerce = () => import("./CommerceSkins");
 function skin<T>(load: () => Promise<T>, name: keyof T) {
@@ -46,7 +47,7 @@ export const catalogSkins = {
   reddit: skin(social, "RedditSkin"),
   forum: skin(social, "ForumSkin"),
   snapchat: skin(social, "SnapchatSkin"),
-  tinder: skin(social, "SnapchatSkin"),
+  tinder: skin(tinder, "TinderSkin"),
   spotify: skin(media, "SpotifySkin"),
   netease: skin(media, "NeteaseSkin"),
   youtube: skin(media, "YouTubeSkin"),
