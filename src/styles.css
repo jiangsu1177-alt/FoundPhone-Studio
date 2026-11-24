@@ -4138,6 +4138,10 @@ label {
   width: 100%;
   margin-top: 8px;
 }
+.wx-moment-post > .skin-avatar img {
+  display: block;
+  margin: 0;
+}
 .wx-moment-song {
   display: flex;
   align-items: center;
