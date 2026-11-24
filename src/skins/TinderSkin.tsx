@@ -9,6 +9,7 @@ import "./tinder/tinder.css";
 const records = chatData as TinderChatData;
 const profilePhotosSrc = `${import.meta.env.BASE_URL}tinder/profile-photos.png`;
 const xPhotoSrc = `${import.meta.env.BASE_URL}tinder/match-x.png`;
+const likesPhotoSrc = `${import.meta.env.BASE_URL}tinder/likes-blur.jpg`;
 
 export function TinderSkin(p: SkinProps) {
   const [route, setRoute] = useState<TinderRoute>("swipe");
@@ -52,13 +53,13 @@ function ChatList({ onOpenChat }: { onOpenChat: () => void }) {
     <header className="tinder-list-header"><h1>聊天</h1><span><ShieldCheck /><Users /></span></header>
     <h2>新的配对</h2>
     <div className="tinder-matches">
-      <button className="tinder-match-card tinder-match-likes" type="button" disabled aria-label="点赞的人"><div className="tinder-avatar tinder-avatar-blur"><b>81</b></div><small>赞</small></button>
+      <button className="tinder-match-card tinder-match-likes" type="button" disabled aria-label="点赞的人"><div className="tinder-avatar tinder-avatar-blur" style={{ backgroundImage: `url("${likesPhotoSrc}")` }}><b>81</b></div><small>赞</small></button>
       <button className="tinder-match-card" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-x-photo"><img src={xPhotoSrc} alt="" /></div><b>X</b></button>
     </div>
     <div className="tinder-message-panel">
       <h2>消息</h2>
       <div className="tinder-chat-rows">
-        <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-simon">S</div><span><b>Simon <i>热恋的人</i></b><small>近期活跃，马上配对！</small></span></button>
+        <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-simon">S</div><span><b>Simon <i>点赞的人</i></b><small>近期活跃，马上配对！</small></span></button>
         <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-x" aria-hidden="true" /><span><b>X</b><small>那先加个v呗 怎么在这上聊多不方便【大笑】</small></span></button>
         <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-team"><Flame /></div><span><b>Team Tinder <BadgeCheck /></b><small>大家都想看到你多样的一面哦，快添加更多照片</small></span></button>
       </div>
