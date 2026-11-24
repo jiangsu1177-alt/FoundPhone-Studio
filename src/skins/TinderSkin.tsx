@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, BadgeCheck, Ellipsis, Flame, Heart, Plus, ShieldCheck, SlidersHorizontal, Users } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Ellipsis, Flame, Plus, ShieldCheck, SlidersHorizontal, Users } from "lucide-react";
 import type { SkinProps } from "../AppSkins";
 import { TinderNavigation } from "./tinder/TinderNavigation";
 import chatData from "./tinder/chat-records.json";
@@ -70,22 +70,22 @@ function ChatList({ onOpenChat }: { onOpenChat: () => void }) {
 function ChatInfo({ onBack, onOpenConversation }: { onBack: () => void; onOpenConversation: () => void }) {
   return <section className="tinder-chat-info">
     <header className="tinder-chat-top"><button onClick={onBack} aria-label="返回"><ArrowLeft /></button><span></span><button aria-label="更多"><Ellipsis /></button></header>
-    <div className="tinder-info-label"><div className="tinder-avatar tinder-avatar-x">X</div><b>X</b></div>
+    <div className="tinder-info-label"><div className="tinder-avatar tinder-avatar-x" aria-label="X 的头像" /><b>X</b></div>
     <div className="tinder-match-date"><span>您和X已配对</span><small>昨天</small></div>
     <button type="button" className="tinder-black-circle" aria-label="打开聊天内容" onClick={onOpenConversation}></button>
-    <div className="tinder-message-composer"><span>GIF</span><i>键入信息</i><button aria-label="点赞不可用" disabled><Heart /></button></div>
+    <div className="tinder-message-composer"><span>GIF</span><i>键入信息</i></div>
   </section>;
 }
 
 function Conversation({ onBack }: { onBack: () => void }) {
   const conversation = records.conversations.find((item) => item.id === "x");
   return <section className="tinder-conversation">
-    <header className="tinder-conversation-header"><button onClick={onBack} aria-label="返回"><ArrowLeft /></button><div className="tinder-avatar tinder-avatar-x">X</div><b>X</b><button aria-label="更多"><Ellipsis /></button></header>
+    <header className="tinder-conversation-header"><button onClick={onBack} aria-label="返回"><ArrowLeft /></button><div className="tinder-avatar tinder-avatar-x" aria-label="X 的头像" /><b>X</b><button aria-label="更多"><Ellipsis /></button></header>
     <div className="tinder-conversation-body">
       <p className="tinder-system-match">你已于 2025/9/19 与 X 配对</p>
       {conversation?.messages.map((message) => message.type === "time" ? <div className="tinder-time-separator" key={message.id}>{message.time}</div> : <div className={`tinder-message tinder-message--${message.sender}`} key={message.id}>{message.type === "emoji" ? <span className="tinder-message-emoji">{message.text}</span> : <><p>{message.text}</p>{message.sender === "match" && message.id === "m1" && <small>双击点赞❤️</small>}</>}</div>)}
     </div>
-    <div className="tinder-message-composer"><span>GIF</span><i>键入信息</i><button aria-label="点赞不可用" disabled><Heart /></button></div>
+    <div className="tinder-message-composer"><span>GIF</span><i>键入信息</i></div>
   </section>;
 }
 
@@ -107,3 +107,4 @@ function ProfilePage() {
     </div>
   </section>;
 }
+

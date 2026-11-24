@@ -362,25 +362,32 @@
 .tinder-avatar-team { background: #f34250; color: #fff; }
 .tinder-avatar-team img { width: 26px; height: 26px; object-fit: contain; filter: brightness(0) invert(1); }
 
-.tinder-chat-top { position: absolute; top: 6px; left: 18px; right: 18px; height: 33px; display: flex; align-items: center; justify-content: space-between; }
+.tinder-chat-top { position: absolute; z-index: 1; top: 0; left: 0; right: 0; height: 110px; }
+.tinder-chat-top button { position: absolute; top: 0; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; padding: 0; background: rgba(255,255,255,.05); box-shadow: -5px -5px 20px -5px rgba(0,0,0,.12), inset 1px 1px 5px rgba(255,255,255,.12); backdrop-filter: blur(12px); }
+.tinder-chat-top button:first-child { left: 15px; }
+.tinder-chat-top button:last-child { right: 15px; }
 .tinder-chat-top svg,.tinder-conversation-header svg { width: 20px; height: 20px; }
-.tinder-info-label { position: absolute; top: 42px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 7px; }
-.tinder-info-label .tinder-avatar { width: 43px; height: 43px; font-size: 12px; }
-.tinder-info-label b { border-radius: 15px; padding: 5px 12px; background: #fff; font-size: 12px; }
-.tinder-match-date { position: absolute; top: 115px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; }
-.tinder-match-date small { color: #777; font-size: 10px; }
-.tinder-black-circle { position: absolute; top: 197px; left: 50%; width: 145px; height: 145px; transform: translateX(-50%); border: 0; border-radius: 50%; background: #000; cursor: pointer; }
+.tinder-info-label { position: absolute; top: 0; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
+.tinder-info-label .tinder-avatar { width: 47px; height: 47px; background: #000; }
+.tinder-info-label b { z-index: 1; display: grid; place-items: center; width: 47px; height: 30px; box-sizing: border-box; margin-top: -3px; border: 1px solid rgba(255,255,255,.25); border-radius: 15px; padding: 0; background: rgba(255,255,255,.08); box-shadow: -5px -5px 20px -5px rgba(0,0,0,.12), inset 1px 1px 5px rgba(255,255,255,.12); backdrop-filter: blur(12px); font-size: 17px; font-weight: 400; }
+.tinder-match-date { position: absolute; top: 275px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 20px; line-height: 27px; }
+.tinder-match-date small { color: #777; font-size: 16px; line-height: 21.6px; }
+.tinder-black-circle { position: absolute; top: 334px; left: 50%; width: 145px; height: 145px; transform: translateX(-50%); border: 0; border-radius: 50%; background: #000; cursor: pointer; }
 .tinder-message-composer { position: absolute; bottom: 57px; left: 12px; right: 12px; height: 37px; display: flex; align-items: center; gap: 10px; border-radius: 19px; padding: 0 12px; background: #fff; box-shadow: 0 2px 8px #00000014; }
+.tinder-chat-info .tinder-message-composer { bottom: 61px; height: 43px; }
 .tinder-message-composer>span { font-size: 10px; font-weight: 700; }
 .tinder-message-composer>i { flex: 1; color: #999; font-size: 11px; font-style: normal; }
 .tinder-message-composer button { display: flex; border: 0; background: none; color: #eb4e71; }
 .tinder-message-composer button:disabled { opacity: .65; }
 .tinder-message-composer button svg { width: 18px; height: 18px; }
 
-.tinder-conversation-header { position: absolute; z-index: 1; top: 0; left: 12px; right: 12px; height: 47px; display: flex; align-items: center; gap: 9px; border-bottom: 1px solid #dedddd; }
-.tinder-conversation-header .tinder-avatar { width: 30px; height: 30px; font-size: 10px; }
-.tinder-conversation-header b { flex: 1; font-size: 12px; }
-.tinder-conversation-body { position: absolute; top: 51px; right: 10px; bottom: 104px; left: 10px; overflow-y: auto; padding: 8px 4px 14px; scrollbar-width: none; }
+.tinder-conversation-header { position: absolute; z-index: 1; top: 0; left: 0; right: 0; height: 142px; }
+.tinder-conversation-header button { position: absolute; top: 59px; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; padding: 0; background: rgba(255,255,255,.04); box-shadow: -5px -5px 20px -5px rgba(0,0,0,.12), inset 1px 1px 5px rgba(255,255,255,.12); }
+.tinder-conversation-header button:first-child { left: 18px; }
+.tinder-conversation-header button:last-child { right: 12px; }
+.tinder-conversation-header .tinder-avatar { position: absolute; top: 59px; left: 50%; width: 47px; height: 47px; transform: translateX(-50%); background: #000; }
+.tinder-conversation-header b { position: absolute; top: 103px; left: 50%; display: grid; place-items: center; width: 47px; height: 30px; transform: translateX(-50%); border: 1px solid rgba(255,255,255,.25); border-radius: 15px; background: rgba(255,255,255,.08); box-shadow: -5px -5px 20px -5px rgba(0,0,0,.12), inset 1px 1px 5px rgba(255,255,255,.12); font-size: 12px; font-weight: 400; }
+.tinder-conversation-body { position: absolute; top: 142px; right: 0; bottom: 71px; left: 0; overflow-y: auto; padding: 0 9px 14px; scrollbar-width: none; }
 .tinder-system-match,.tinder-time-separator { width: max-content; margin: 8px auto 13px; color: #777; font-size: 10px; }
 .tinder-message { display: flex; flex-direction: column; width: fit-content; max-width: 77%; margin: 7px 0; }
 .tinder-message--me { align-items: flex-end; margin-left: auto; }
@@ -389,7 +396,7 @@
 .tinder-message--me p { background: #281016; color: #fff; }
 .tinder-message small { margin: 4px 5px; color: #7e7a7a; font-size: 9px; }
 .tinder-message-emoji { font-size: 47px; line-height: 1.1; }
-.tinder-conversation .tinder-message-composer { bottom: 55px; }
+.tinder-conversation .tinder-message-composer { bottom: 28px; left: 15px; right: 9px; height: 43px; }
 
 .tinder-profile-header { position: absolute; top: 7px; left: 14px; right: 14px; height: 68px; display: flex; align-items: center; gap: 10px; }
 .tinder-profile-photo { display: grid; place-items: center; border-radius: 50%; overflow: hidden; }
@@ -458,3 +465,4 @@
   .tinder-list-title { top: 180px; }
   .tinder-chat-rows { top: 211px; }
 }
+
