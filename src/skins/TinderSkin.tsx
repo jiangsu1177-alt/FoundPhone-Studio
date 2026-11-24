@@ -107,4 +107,3 @@ function ProfilePage() {
     </div>
   </section>;
 }
-
