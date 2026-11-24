@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, BadgeCheck, ChevronRight, Ellipsis, Heart, Plus, Search, ShieldCheck, SlidersHorizontal, Users } from "lucide-react";
+import { ArrowLeft, BadgeCheck, ChevronRight, Ellipsis, Flame, Heart, Plus, Search, ShieldCheck, SlidersHorizontal, Users } from "lucide-react";
 import type { SkinProps } from "../AppSkins";
 import { TinderNavigation } from "./tinder/TinderNavigation";
 import chatData from "./tinder/chat-records.json";
@@ -52,14 +52,16 @@ function ChatList({ onOpenChat }: { onOpenChat: () => void }) {
     <header className="tinder-list-header"><h1>聊天</h1><span><ShieldCheck /><Users /></span></header>
     <h2>新的配对</h2>
     <div className="tinder-matches">
-      <button className="tinder-match-card tinder-match-likes" type="button" disabled aria-label="点赞的人"><div className="tinder-avatar tinder-avatar-blur"><Heart fill="currentColor" /></div><b>81</b><small>赞</small></button>
+      <button className="tinder-match-card tinder-match-likes" type="button" disabled aria-label="点赞的人"><div className="tinder-avatar tinder-avatar-blur"><b>81</b></div><small>赞</small></button>
       <button className="tinder-match-card" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-x-photo"><img src={xPhotoSrc} alt="" /></div><b>X</b></button>
     </div>
-    <div className="tinder-list-title"><h2>消息</h2><button aria-label="搜索" type="button"><Search /></button></div>
-    <div className="tinder-chat-rows">
-      <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-simon">S</div><span><b>Simon <i>热恋的人</i></b><small>近期活跃，马上配对！</small></span><ChevronRight /></button>
-      <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-x" aria-hidden="true" /><span><b>X</b><small>那先加个v呗 怎么在这上聊多不方便【大笑】</small></span><ChevronRight /></button>
-      <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-team"><img src={`${import.meta.env.BASE_URL}tinder/lightning.svg`} alt="" /></div><span><b>Team Tinder <BadgeCheck /></b><small>大家都想看到你多样的一面哦，快添加更多照片</small></span><ChevronRight /></button>
+    <div className="tinder-message-panel">
+      <h2>消息</h2>
+      <div className="tinder-chat-rows">
+        <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-simon">S</div><span><b>Simon <i>热恋的人</i></b><small>近期活跃，马上配对！</small></span></button>
+        <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-x" aria-hidden="true" /><span><b>X</b><small>那先加个v呗 怎么在这上聊多不方便【大笑】</small></span></button>
+        <button className="tinder-chat-row" type="button" onClick={onOpenChat}><div className="tinder-avatar tinder-avatar-team"><Flame /></div><span><b>Team Tinder <BadgeCheck /></b><small>大家都想看到你多样的一面哦，快添加更多照片</small></span></button>
+      </div>
     </div>
   </section>;
 }
