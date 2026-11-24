@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, BadgeCheck, ChevronRight, Ellipsis, Flame, Heart, Plus, Search, ShieldCheck, SlidersHorizontal, Users } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Ellipsis, Flame, Heart, Plus, ShieldCheck, SlidersHorizontal, Users } from "lucide-react";
 import type { SkinProps } from "../AppSkins";
 import { TinderNavigation } from "./tinder/TinderNavigation";
 import chatData from "./tinder/chat-records.json";
