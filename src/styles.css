@@ -758,6 +758,19 @@ svg {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.wallpaper-photo-pair {
+  background-color: #151515;
+  background-image: url("./assets/wallpaper-home-portrait.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.wallpaper-photo-pair.is-locked {
+  background-image: url("./assets/wallpaper-lock-church.jpg");
+}
+.phone-screen.wallpaper-photo-pair .wallpaper-orb {
+  display: none;
+}
 .wallpaper-orb {
   position: absolute;
   pointer-events: none;

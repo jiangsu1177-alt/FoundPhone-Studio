@@ -377,7 +377,7 @@ export function PhoneSettings({
         <label>
           壁纸
           <div className="wallpaper-options">
-            {["sage", "sand", "night", "rose"].map((w) => (
+            {["photo-pair"].map((w) => (
               <button
                 key={w}
                 aria-label={`选择${w}壁纸`}
