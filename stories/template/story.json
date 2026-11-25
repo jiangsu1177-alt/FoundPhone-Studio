@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "仅用于界面测试，不含剧情",
-  "revision": 24,
+  "revision": 25,
   "phone": {
     "owner": "普通巧克力",
     "date": "2025-09-21",
@@ -79,6 +79,16 @@
       "dock": false,
       "folder": "",
       "icon": "./story-assets/e5bbec6923cc21dd.png"
+    },
+    {
+      "id": "workbuddy",
+      "name": "WorkBuddy",
+      "installed": true,
+      "launchable": false,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
     },
     {
       "id": "whatsapp",
