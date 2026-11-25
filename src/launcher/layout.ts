@@ -83,15 +83,29 @@ const previewPositions: DeviceLayout["positions"] = {
   redbook: { page: 1, x: 0, y: 3 },
 };
 function applyPreviewLayout(layout: DeviceLayout): DeviceLayout {
+  const previousOrder = layout.order;
+  const previousWidgets = layout.widgets;
   layout.apps = layout.apps.map((app) => ({
     ...app,
     dock: previewDockApps.includes(app.id),
-    folder: "",
+    folder: ["中国", "国内", "国际", "海外", "国内App", "国际App"].includes(
+      app.folder,
+    )
+      ? ""
+      : app.folder,
   }));
-  layout.widgets = structuredClone(previewWidgets);
-  layout.order = [...previewOrder];
+  layout.widgets = previousWidgets.length
+    ? previousWidgets
+    : structuredClone(previewWidgets);
+  layout.order = [
+    ...previewOrder,
+    ...previousOrder.filter((id) => !previewOrder.includes(id)),
+  ];
   layout.cleared = [];
   layout.positions = structuredClone(previewPositions);
+  for (const app of layout.apps) {
+    if (app.folder) delete layout.positions[app.id];
+  }
   layout.previewLayoutRevision = 5;
   return layout;
 }
