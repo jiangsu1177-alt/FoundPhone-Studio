@@ -401,6 +401,24 @@ function PhoneRuntime({
             }
           }}
         >
+          {work.phone.wallpaper === "photo-pair" && (
+            <img
+              className="phone-wallpaper-image"
+              src={locked ? lockWallpaper : homeWallpaper}
+              alt=""
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+                pointerEvents: "none",
+                zIndex: 0,
+              }}
+            />
+          )}
           <div className="wallpaper-orb orb-one" />
           <div className="wallpaper-orb orb-two" />
           <div className="status-bar">
