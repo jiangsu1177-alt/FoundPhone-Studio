@@ -33,6 +33,68 @@ export const layoutSchema = z
 export type DeviceLayout = z.infer<typeof layoutSchema>;
 export type Widget = z.infer<typeof widgetSchema>;
 export type AppConfig = Work["apps"][number];
+
+const previewDockApps = ["phone", "messages", "camera", "safari"];
+const previewWidgets: Widget[] = [
+  { id: "widget-weather", type: "weather", size: "small" },
+  { id: "widget-calendar", type: "calendar", size: "small" },
+];
+const previewOrder = [
+  "widget-weather", "widget-calendar",
+  "wechat", "files", "music", "find",
+  "calculator", "appstore", "contacts", "photos",
+  "notes", "calendar", "mail", "clock",
+  "weather", "reminders", "maps", "wallet",
+  "health", "netease", "settings", "whatsapp",
+  "tonghuashun", "workbuddy", "nytimes", "jinrongjie",
+  "robinhood", "wsj", "bloomberg", "tinder", "redbook",
+];
+const previewPositions: DeviceLayout["positions"] = {
+  "widget-weather": { page: 0, x: 0, y: 0 },
+  "widget-calendar": { page: 0, x: 2, y: 0 },
+  wechat: { page: 0, x: 0, y: 2 },
+  files: { page: 0, x: 1, y: 2 },
+  music: { page: 0, x: 2, y: 2 },
+  find: { page: 0, x: 3, y: 2 },
+  calculator: { page: 0, x: 0, y: 3 },
+  appstore: { page: 0, x: 1, y: 3 },
+  contacts: { page: 0, x: 2, y: 3 },
+  photos: { page: 0, x: 3, y: 3 },
+  notes: { page: 0, x: 0, y: 4 },
+  calendar: { page: 0, x: 1, y: 4 },
+  mail: { page: 0, x: 2, y: 4 },
+  clock: { page: 0, x: 3, y: 4 },
+  weather: { page: 0, x: 0, y: 5 },
+  reminders: { page: 0, x: 1, y: 5 },
+  maps: { page: 0, x: 2, y: 5 },
+  wallet: { page: 0, x: 3, y: 5 },
+  health: { page: 1, x: 0, y: 0 },
+  netease: { page: 1, x: 1, y: 0 },
+  settings: { page: 1, x: 2, y: 0 },
+  whatsapp: { page: 1, x: 3, y: 0 },
+  tonghuashun: { page: 1, x: 0, y: 1 },
+  workbuddy: { page: 1, x: 1, y: 1 },
+  nytimes: { page: 1, x: 2, y: 1 },
+  jinrongjie: { page: 1, x: 3, y: 1 },
+  robinhood: { page: 1, x: 0, y: 2 },
+  wsj: { page: 1, x: 1, y: 2 },
+  bloomberg: { page: 1, x: 2, y: 2 },
+  tinder: { page: 1, x: 3, y: 2 },
+  redbook: { page: 1, x: 0, y: 3 },
+};
+function applyPreviewLayout(layout: DeviceLayout): DeviceLayout {
+  layout.apps = layout.apps.map((app) => ({
+    ...app,
+    dock: previewDockApps.includes(app.id),
+    folder: "",
+  }));
+  layout.widgets = structuredClone(previewWidgets);
+  layout.order = [...previewOrder];
+  layout.cleared = [];
+  layout.positions = structuredClone(previewPositions);
+  layout.previewLayoutRevision = 5;
+  return layout;
+}
 export function ensureAppStore(work: Work): Work {
   return work.apps.some((a) => a.id === "appstore")
     ? work
@@ -54,10 +116,10 @@ export function ensureAppStore(work: Work): Work {
 }
 export function defaultLayout(input: Work): DeviceLayout {
   const w = ensureAppStore(input);
-  return {
+  const layout: DeviceLayout = {
     version: 1,
     workId: w.id,
-    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 4 : 0,
+    previewLayoutRevision: 0,
     apps: structuredClone(w.apps)
       .sort((a, b) => (a.id === "appstore" ? -1 : b.id === "appstore" ? 1 : 0))
       .map((a) =>
@@ -70,6 +132,7 @@ export function defaultLayout(input: Work): DeviceLayout {
     cleared: [],
     positions: {},
   };
+  return w.id === "ui-test-phone-v2" ? applyPreviewLayout(layout) : layout;
 }
 export function validateLayout(raw: unknown, input: Work) {
   const w = ensureAppStore(input);
@@ -156,6 +219,9 @@ export function validateLayout(raw: unknown, input: Work) {
       snapchat.folder = "";
     }
     layout.previewLayoutRevision = 4;
+  }
+  if (w.id === "ui-test-phone-v2" && layout.previewLayoutRevision < 5) {
+    applyPreviewLayout(layout);
   }
   const entries = homeEntries(layout),
     packed = packHome(entries, layout.positions);
