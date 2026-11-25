@@ -113,6 +113,7 @@ export const workSchema = z.object({
         id: z.string(),
         name: z.string(),
         installed: z.boolean().default(true),
+        launchable: z.boolean().optional(),
         visible: z.boolean(),
         dock: z.boolean(),
         folder: z.string(),

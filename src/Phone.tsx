@@ -270,7 +270,8 @@ function PhoneRuntime({
   };
   const open = (id: string) => {
     if (id === "tonghuashun") return;
-    if (!work.apps.some((a) => a.id === id && a.installed)) return;
+    const targetApp = work.apps.find((a) => a.id === id && a.installed);
+    if (!targetApp || targetApp.launchable === false) return;
     setApp(id);
     setKeyboard(false);
     setRecent((v) => [id, ...v.filter((a) => a !== id)].slice(0, 8));

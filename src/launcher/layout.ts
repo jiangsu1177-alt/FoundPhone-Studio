@@ -57,7 +57,7 @@ export function defaultLayout(input: Work): DeviceLayout {
   return {
     version: 1,
     workId: w.id,
-    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 3 : 0,
+    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 4 : 0,
     apps: structuredClone(w.apps)
       .sort((a, b) => (a.id === "appstore" ? -1 : b.id === "appstore" ? 1 : 0))
       .map((a) =>
@@ -81,6 +81,13 @@ export function validateLayout(raw: unknown, input: Work) {
     throw Error("App ID重复");
   if (new Set(layout.widgets.map((a) => a.id)).size !== layout.widgets.length)
     throw Error("小组件ID重复");
+  const authoredApps = new Map(w.apps.map((app) => [app.id, app]));
+  layout.apps = layout.apps.map((app) => {
+    const authored = authoredApps.get(app.id);
+    return authored?.launchable === undefined
+      ? app
+      : { ...app, launchable: authored.launchable };
+  });
   if (layout.apps.filter((a) => a.installed && a.visible && a.dock).length > 4)
     throw Error("Dock最多4个App");
   if (layout.widgets.some((w) => known.has(w.id)))
@@ -139,6 +146,16 @@ export function validateLayout(raw: unknown, input: Work) {
       ...layout.order.filter((id) => !appsToMove.includes(id)),
     ];
     layout.previewLayoutRevision = 3;
+  }
+  if (w.id === "ui-test-phone-v2" && layout.previewLayoutRevision < 4) {
+    const snapchat = layout.apps.find((app) => app.id === "snapchat");
+    if (snapchat) {
+      snapchat.installed = false;
+      snapchat.visible = false;
+      snapchat.dock = false;
+      snapchat.folder = "";
+    }
+    layout.previewLayoutRevision = 4;
   }
   const entries = homeEntries(layout),
     packed = packHome(entries, layout.positions);
