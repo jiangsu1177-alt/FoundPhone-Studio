@@ -450,14 +450,7 @@ export function WeChatSkin(p: SkinProps) {
             const likers = (post.meta.likedBy || "").split("、").filter(Boolean);
             const mediaItems = group.filter((item) => item.media);
             return (
-              <article
-                key={post.id}
-                className={
-                  post.id === "xin-moments-sep05-photo"
-                    ? "wx-moment-post wx-moment-post--small-photo"
-                    : "wx-moment-post"
-                }
-              >
+              <article key={post.id} className="wx-moment-post">
                 <Avatar
                   name={post.sender}
                   src={

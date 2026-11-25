@@ -1,11 +1,9 @@
 /* Device runtime: safe areas, system layers and gestures are independent of Studio. */
 .phone-shell.ios18 {
-  border-radius: 55px;
+  border-radius: calc(48px * var(--phone-scale) + 7px);
   padding: 7px;
-  width: 407px;
-  height: 866px;
-  transform: scale(var(--phone-scale));
-  transform-origin: center;
+  width: calc(393px * var(--phone-scale) + 14px);
+  height: calc(852px * var(--phone-scale) + 14px);
   background: #17181b;
   box-shadow:
     0 0 0 1px #65666a,

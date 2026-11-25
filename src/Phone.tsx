@@ -1,6 +1,4 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
-import lockWallpaper from "./assets/wallpaper-lock-church.jpg";
-import homeWallpaper from "./assets/wallpaper-home-portrait.jpg";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
@@ -320,33 +318,12 @@ function PhoneRuntime({
   return (
     <div
       ref={shell}
-      style={{
-        "--phone-scale": deviceScale,
-        ...(!creator && !external
-          ? {
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%) scale(var(--phone-scale))",
-              transformOrigin: "center",
-            }
-          : {}),
-      } as CSSProperties}
+      style={{ "--phone-scale": deviceScale } as CSSProperties}
       className={`phone-shell ios18 ${work.phone.theme === "dark" ? "dark-phone" : ""}`}
     >
       <KeyboardContext.Provider value={setKeyboard}>
         <div
           className={`phone-screen wallpaper-${work.phone.wallpaper} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
-          style={
-            work.phone.wallpaper === "photo-pair"
-              ? {
-                  backgroundImage: `url("${locked ? lockWallpaper : homeWallpaper}")`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }
-              : undefined
-          }
           data-app={app}
           onDragStart={(e) => e.preventDefault()}
           onPointerDown={(e) => {
@@ -412,24 +389,6 @@ function PhoneRuntime({
             }
           }}
         >
-          {work.phone.wallpaper === "photo-pair" && (
-            <img
-              className="phone-wallpaper-image"
-              src={locked ? lockWallpaper : homeWallpaper}
-              alt=""
-              aria-hidden="true"
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "center",
-                pointerEvents: "none",
-                zIndex: 0,
-              }}
-            />
-          )}
           <div className="wallpaper-orb orb-one" />
           <div className="wallpaper-orb orb-two" />
           <div className="status-bar">

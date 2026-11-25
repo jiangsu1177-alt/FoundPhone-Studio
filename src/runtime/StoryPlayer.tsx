@@ -33,19 +33,7 @@ function StoryPlayer() {
     return () => abort.abort();
   }, []);
   return (
-    <main
-      className="story-runtime"
-      style={{
-        position: "fixed",
-        inset: 0,
-        width: "100vw",
-        height: "100dvh",
-        display: "grid",
-        placeItems: "center",
-        overflow: "hidden",
-        background: "#111113",
-      }}
-    >
+    <main className="story-runtime">
       {work ? (
         <Phone work={work} />
       ) : (
