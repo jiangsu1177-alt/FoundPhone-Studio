@@ -320,7 +320,18 @@ function PhoneRuntime({
   return (
     <div
       ref={shell}
-      style={{ "--phone-scale": deviceScale } as CSSProperties}
+      style={{
+        "--phone-scale": deviceScale,
+        ...(!creator && !external
+          ? {
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%) scale(var(--phone-scale))",
+              transformOrigin: "center",
+            }
+          : {}),
+      } as CSSProperties}
       className={`phone-shell ios18 ${work.phone.theme === "dark" ? "dark-phone" : ""}`}
     >
       <KeyboardContext.Provider value={setKeyboard}>
