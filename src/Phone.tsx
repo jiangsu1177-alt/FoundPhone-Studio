@@ -326,6 +326,16 @@ function PhoneRuntime({
       <KeyboardContext.Provider value={setKeyboard}>
         <div
           className={`phone-screen wallpaper-${work.phone.wallpaper} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
+          style={
+            work.phone.wallpaper === "photo-pair"
+              ? {
+                  backgroundImage: `url("${locked ? lockWallpaper : homeWallpaper}")`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }
+              : undefined
+          }
           data-app={app}
           onDragStart={(e) => e.preventDefault()}
           onPointerDown={(e) => {
