@@ -1,9 +1,9 @@
 .story-runtime {
-  position: fixed;
-  inset: 0;
-  height: 100dvh;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
   min-height: 320px;
-  width: 100vw;
   display: grid;
   place-items: center;
   box-sizing: border-box;
@@ -16,7 +16,12 @@
   margin: 0;
 }
 .story-runtime > .phone-shell {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   margin: 0;
+  transform: translate(-50%, -50%) scale(var(--phone-scale));
+  transform-origin: center;
 }
 @media (max-width: 430px) {
   .story-runtime {
