@@ -1,4 +1,6 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
+import lockWallpaper from "./assets/wallpaper-lock-church.jpg";
+import homeWallpaper from "./assets/wallpaper-home-portrait.jpg";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
